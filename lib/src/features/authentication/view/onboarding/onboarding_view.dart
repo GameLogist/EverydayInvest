@@ -1,15 +1,9 @@
-import 'package:everyday_invest/src/constants/image_strings.dart';
-import 'package:everyday_invest/src/constants/sizes.dart';
-import 'package:everyday_invest/src/constants/text_string.dart';
+import 'package:everyday_invest/src/constants/colors.dart';
+import 'package:everyday_invest/src/features/authentication/view_model/onboarding_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../../../../constants/colors.dart';
-import '../../model/onboarding_model.dart';
-import '../../view_model/onboarding_view_model.dart';
-import 'onboarding_page_view.dart';
 
 class OnboardingView extends StatelessWidget {
   OnboardingView({super.key});

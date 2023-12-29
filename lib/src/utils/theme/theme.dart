@@ -9,7 +9,7 @@ class InvestTheme {
   InvestTheme._();
 
   static ThemeData lightTheme = ThemeData(
-      scaffoldBackgroundColor: mSecondaryBackground,
+      scaffoldBackgroundColor: mPrimaryWhite,
       brightness: Brightness.light,
       textTheme: InvTextTheme.lightTextTheme,
       outlinedButtonTheme: InvOutlinedButtonTheme.lightOutlinedButtonTheme,

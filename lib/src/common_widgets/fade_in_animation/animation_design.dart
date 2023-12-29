@@ -1,5 +1,4 @@
 import 'package:everyday_invest/src/common_widgets/fade_in_animation/fade_in_animation_model.dart';
-import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/common_widgets/fade_in_animation/fade_in_animation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

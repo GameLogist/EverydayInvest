@@ -1,13 +1,12 @@
-import 'dart:ui';
-
+import 'package:everyday_invest/main.dart';
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/constants/image_strings.dart';
 import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/authentication/model/onboarding_model.dart';
+import 'package:everyday_invest/src/features/authentication/view/onboarding/onboarding_page_view.dart';
+import 'package:everyday_invest/src/features/home/view/navigation_page.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-
-import '../view/onboarding/onboarding_page_view.dart';
 
 class OnboardingViewModel extends GetxController {
   final liquidController = LiquidController();
@@ -38,13 +37,21 @@ class OnboardingViewModel extends GetxController {
   ];
 
   void onPageChangeCallback(int activePageIndex) {
-    currentPage.value = activePageIndex;
+    if (currentPage.value == 2 && activePageIndex == 0) {
+      Get.to(() => const NavigationPage());
+    } else {
+      currentPage.value = activePageIndex;
+    }
   }
 
-  skip() => liquidController.jumpToPage(page: 2);
+  skip() => Get.to(() => const NavigationPage());
 
   animateToNextPage() {
     int nextPage = liquidController.currentPage + 1;
-    liquidController.animateToPage(page: nextPage);
+    if (currentPage.value == 2) {
+      Get.to(() => const NavigationPage());
+    } else {
+      liquidController.animateToPage(page: nextPage);
+    }
   }
 }

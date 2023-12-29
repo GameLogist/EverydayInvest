@@ -17,6 +17,14 @@ class InvTextTheme {
   );
   static TextTheme darkTextTheme = TextTheme(
       headlineSmall: GoogleFonts.nunito(color: Colors.white70),
-      headlineMedium: GoogleFonts.nunito(color: Colors.white60),
-      headlineLarge: GoogleFonts.nunito(color: Colors.white60));
+      headlineMedium: GoogleFonts.nunito(
+          color: Colors.white70, fontWeight: FontWeight.w700, fontSize: 28),
+      headlineLarge: GoogleFonts.nunito(color: Colors.white70),
+      titleLarge: GoogleFonts.nunito(color: Colors.white70),
+      titleMedium: GoogleFonts.nunito(color: Colors.white70),
+      titleSmall: GoogleFonts.nunito(color: Colors.white70),
+      labelLarge: GoogleFonts.nunito(
+          color: Colors.white70, fontWeight: FontWeight.bold),
+      labelMedium: GoogleFonts.nunito(color: Colors.white70),
+      labelSmall: GoogleFonts.nunito(color: Colors.white70));
 }
