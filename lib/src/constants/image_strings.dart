@@ -15,3 +15,7 @@ const String mWelcomeImage = "assets/images/welcome_images/splashLogo.png";
 
 // Login
 const String mGoogleIcon = "assets/logo/googleLogo.png";
+
+// Profile Images
+const String mDefaultProfileImage =
+    "assets/images/profile_page_images/profile_image.jpg";

@@ -4,6 +4,7 @@ import 'package:everyday_invest/src/constants/image_strings.dart';
 import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/authentication/model/onboarding_model.dart';
 import 'package:everyday_invest/src/features/authentication/view/onboarding/onboarding_page_view.dart';
+import 'package:everyday_invest/src/features/authentication/view/welcome/welcome_view.dart';
 import 'package:everyday_invest/src/features/home/view/navigation_page.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -38,18 +39,18 @@ class OnboardingViewModel extends GetxController {
 
   void onPageChangeCallback(int activePageIndex) {
     if (currentPage.value == 2 && activePageIndex == 0) {
-      Get.to(() => const NavigationPage());
+      Get.to(() => const WelcomeView());
     } else {
       currentPage.value = activePageIndex;
     }
   }
 
-  skip() => Get.to(() => const NavigationPage());
+  skip() => Get.to(() => const WelcomeView());
 
   animateToNextPage() {
     int nextPage = liquidController.currentPage + 1;
     if (currentPage.value == 2) {
-      Get.to(() => const NavigationPage());
+      Get.to(() => const WelcomeView());
     } else {
       liquidController.animateToPage(page: nextPage);
     }

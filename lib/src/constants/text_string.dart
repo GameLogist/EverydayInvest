@@ -1,12 +1,13 @@
 // App Text Strings
 
 // Generic Text
+const String mAppName = "Zenfolio";
 const String mLogin = "Login";
 const String mSignup = "Signup";
+const String mLogout = "Logout";
 const mOr = "OR";
 
 // Splash Text
-const String mAppName = "Everyday Investing";
 const String mAppTagLine = "Invest Intelligently and Aesthetically";
 
 // Onboarding Text
@@ -44,3 +45,16 @@ const String mSignUpSubTitle = "Create your profile to start your journey.";
 const String mAlreadyHaveAnAccount = "Already have an Account? ";
 const String mFullName = "Full Name";
 const String mPhoneNumber = "Phone Number";
+
+// Account Page
+const String mProfile = "Profile";
+const String mEditProfile = "Edit Profile";
+const String mLogoutDialogHeading = "Logout";
+const String mProfileSubheading = "ayush.tiwari410@gmail.com";
+const String mJoined = "Joined";
+// Account Menu
+const String mMenuItem1 = "Settings";
+const String mMenuItem2 = "Information";
+const String mMenuItem3 = "Notifications";
+const String mMenuItem4 = "Policies and Agreements";
+const String mMenuItem5 = mLogout;

@@ -12,13 +12,25 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
+  
   google_fonts: ^5.0.0
   get: ^4.6.5
+
+  # UI Packages
   liquid_swipe: ^3.0.0
   smooth_page_indicator: ^1.0.0+2
   google_nav_bar: ^5.0.6
+  fl_chart: ^0.65.0
+
+  # Firebase Packages
+  firebase_core: ^2.24.0
+  cloud_firestore: ^4.13.2
+  firebase_auth: ^4.15.0
+
+  # Icons Packages
+  line_awesome_flutter: ^2.0.0
   line_icons: ^2.0.2
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -30,6 +42,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/onboarding_images/
+    - assets/images/profile_page_images/
     - assets/images/splash_images/
     - assets/images/welcome_images/
     - assets/logo/

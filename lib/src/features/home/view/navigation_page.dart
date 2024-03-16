@@ -1,10 +1,10 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/authentication/view/splash_screen/splash_view.dart';
-import 'package:everyday_invest/src/features/home/view/account_page.dart';
-import 'package:everyday_invest/src/features/home/view/home_page.dart';
-import 'package:everyday_invest/src/features/home/view/investments_page.dart';
-import 'package:everyday_invest/src/features/home/view/learn_page.dart';
+import 'package:everyday_invest/src/features/home/view/account_page/account_page.dart';
+import 'package:everyday_invest/src/features/home/view/home_page/home_page.dart';
+import 'package:everyday_invest/src/features/home/view/investments_page/investments_page.dart';
+import 'package:everyday_invest/src/features/home/view/learn_page/learn_page.dart';
 import 'package:everyday_invest/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,9 +30,7 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(color: mPrimaryBackground, boxShadow: [
           BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))

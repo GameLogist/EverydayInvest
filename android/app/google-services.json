@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "688936945738",
+    "project_id": "zenfolio-3eadf",
+    "storage_bucket": "zenfolio-3eadf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688936945738:android:ec2e82f48ac8b9bf5efeb3",
+        "android_client_info": {
+          "package_name": "com.example.everyday_invest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEecM-V5H8djcpO5xBL4C3r1JjYN1MDOc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
