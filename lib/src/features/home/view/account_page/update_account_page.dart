@@ -1,6 +1,7 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/constants/image_strings.dart';
 import 'package:everyday_invest/src/constants/text_string.dart';
+import 'package:everyday_invest/src/features/authentication/model/user_model.dart';
 import 'package:everyday_invest/src/features/home/view_model/account_page_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -73,7 +74,7 @@ class UpdateProfileView extends StatelessWidget {
                   key: formKey,
                   child: Column(children: [
                     TextFormField(
-                      controller: accountPageViewModel.fullName,
+                      controller: accountPageViewModel.fullNameController,
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.person_outline_rounded),
                           labelText: mFullName,
@@ -88,7 +89,7 @@ class UpdateProfileView extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
-                      controller: accountPageViewModel.email,
+                      controller: accountPageViewModel.emailController,
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.email_outlined),
                           labelText: mEmail,
@@ -103,7 +104,7 @@ class UpdateProfileView extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
-                      controller: accountPageViewModel.phoneNo,
+                      controller: accountPageViewModel.phoneNoController,
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.phone),
                           labelText: mPhoneNumber,
@@ -118,7 +119,7 @@ class UpdateProfileView extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
-                      controller: accountPageViewModel.password,
+                      controller: accountPageViewModel.passwordController,
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.fingerprint),
                           labelText: mPassword,
@@ -135,7 +136,21 @@ class UpdateProfileView extends StatelessWidget {
                     SizedBox(
                       width: 200,
                       child: ElevatedButton(
-                          onPressed: () => {Get.back()},
+                          onPressed: () async {
+                            final user = UserModel(
+                                fullName: accountPageViewModel
+                                    .fullNameController.text
+                                    .trim(),
+                                email: accountPageViewModel.emailController.text
+                                    .trim(),
+                                phoneNo: accountPageViewModel
+                                    .phoneNoController.text
+                                    .trim(),
+                                password: accountPageViewModel
+                                    .passwordController.text
+                                    .trim());
+                            await accountPageViewModel.updateUserRecord(user);
+                          },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: mDarkBlue,
                               side: BorderSide.none,
