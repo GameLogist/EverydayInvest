@@ -9,6 +9,7 @@ import 'package:everyday_invest/src/features/authentication/view/onboarding/onbo
 import 'package:everyday_invest/src/features/home/model/home_page_models.dart';
 import 'package:everyday_invest/src/features/home/view/navigation_page.dart';
 import 'package:everyday_invest/src/testing/test_data.dart';
+import 'package:everyday_invest/src/utils/util_funtions/DateTimeUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
@@ -36,9 +37,13 @@ class HomePageViewModel extends GetxController
   final List<StockInfo> homeTopLosers = TestData().homeTopLosersTest;
 
   List<YahooFinanceCandleData> indexPriceList = [];
-  late StreamController<YahooFinanceCandleData> _indexPriceListStreamController;
   late TabController tabController;
   int page = 0;
+
+  late final StreamController<List<YahooFinanceCandleData>> streamController;
+  late Stream<List<YahooFinanceCandleData>> stream =
+      Stream.periodic(Duration(seconds: 10))
+          .asyncMap((event) async => await getMajorIndexTickerDataOfTicker());
 
   @override
   void onInit() {
@@ -54,40 +59,50 @@ class HomePageViewModel extends GetxController
       length: homeBottomWidgetTabs.length,
       vsync: this,
     );
-
-    _indexPriceListStreamController =
-        StreamController<YahooFinanceCandleData>();
-    _startIndexPriceStream();
   }
 
-  getMajorIndexTickerDataOfTicker() async {
+  Future<List<YahooFinanceCandleData>> getMajorIndexTickerDataOfTicker() async {
     indexPriceList.clear();
-    DateTime? dateToFetch = isValidTimeRange(StockTime.Indian)
-        ? DateTime.now()
-        : DateTime.now().subtract(Duration(days: 1));
+    DateTime? dateToFetch =
+        isValidTradeDay(DateTime.now()) && isValidTimeRange(StockTime.Indian)
+            ? DateTime.now()
+            : lastOpenTime();
+
+    // DateTime dateToFetch = DateTime(DateTime.now().year, DateTime.now().month,
+    //     DateTime.now().day, 12, 0, 0);
+    // dateToFetch = dateToFetch.subtract(Duration(days: 3));
+    print("Date to Fetch - $dateToFetch");
 
     final NSEPrice = await YahooFinanceService().getTickerData(
       '^NSEI',
       startDate: dateToFetch,
       adjust: true,
     );
+    print("NSE = ${NSEPrice}");
 
     final BSEPrice = await YahooFinanceService().getTickerData(
       '^BSESN',
       startDate: dateToFetch,
       adjust: true,
     );
-    indexPriceList.add(NSEPrice.first);
-    indexPriceList.add(BSEPrice.first);
 
-    print(
-        "Ticker : NSE = ${indexPriceList[0].adjClose}, BSE = ${indexPriceList[1].adjClose}");
+    print("BSE = ${BSEPrice}");
+
+    if (NSEPrice.isNotEmpty && BSEPrice.isNotEmpty) {
+      indexPriceList.add(NSEPrice.first);
+      indexPriceList.add(BSEPrice.first);
+      print(
+          "Ticker : NSE = ${indexPriceList[0].adjClose}, BSE = ${indexPriceList[1].adjClose}");
+    }
+
+    return indexPriceList;
   }
 
   Future<List<YahooFinanceCandleData>> getDataOfTicker(String ticker) async {
-    DateTime? dateToFetch = isValidTimeRange(StockTime.Indian)
-        ? DateTime.now()
-        : DateTime.now().subtract(Duration(days: 1));
+    DateTime? dateToFetch =
+        isValidTradeDay(DateTime.now()) && isValidTimeRange(StockTime.Indian)
+            ? DateTime.now()
+            : lastOpenTime();
     final tickerPrice = await YahooFinanceService().getTickerData(
       ticker,
       startDate: dateToFetch,
@@ -113,8 +128,54 @@ class HomePageViewModel extends GetxController
             (now.hour == endTime.hour && now.minute <= endTime.minute));
   }
 
-  void _startIndexPriceStream() async {
-    Timer.periodic(
-        Duration(seconds: 10), (Timer t) => getMajorIndexTickerDataOfTicker());
+  DateTime lastOpenTime() {
+    // Set initial time to 4pm today
+    DateTime result =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+    while (!isValidTradeDay(result)) {
+      // Check if today is a holiday
+      if (DateTimeUtils().checkForHolidayOnDate(result)) {
+        print("Today is a holiday");
+        result = result.subtract(const Duration(days: 1));
+      }
+      // Return 4pm last Friday if today is Sunday or Saturday
+      if (result.weekday == 7) {
+        // Sunday
+        print("Today is a Sunday");
+        result = result.subtract(const Duration(days: 2));
+      } else if (result.weekday == 6) {
+        // Saturday
+        print("Today is a Saturday");
+        result = result.subtract(const Duration(days: 1));
+      }
+    }
+
+    // its after 4pm on a trading day
+    // if (result.hour > 16) {
+    //   return result;
+    // } else if (result.hour < 9) {
+    //   // If its before 9 am on a Monday, return 4pm last Friday
+    //   if (DateTime.now().weekday == 1) {
+    //     result = result.subtract(Duration(days: 3));
+    //   } else {
+    //     // Its before 9 am on a trading day
+    //     result = result.subtract(const Duration(days: 1));
+    //   }
+    //   return result;
+    // }
+    return result;
   }
+
+  bool isValidTradeDay(DateTime date) {
+    bool isWeekday = date.weekday >= 1 && date.weekday <= 5;
+    bool isHoliday = DateTimeUtils().checkForHolidayOnDate(date);
+
+    return isWeekday && !isHoliday;
+  }
+
+  // void _startIndexPriceStream() async {
+  //   Timer.periodic(
+  //       Duration(seconds: 10), (Timer t) => getMajorIndexTickerDataOfTicker());
+  // }
 }

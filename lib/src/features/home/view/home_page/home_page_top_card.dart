@@ -1,7 +1,9 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/features/home/view_model/home_page_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yahoo_finance_data_reader/yahoo_finance_data_reader.dart';
 
 class HomeScreenTopCard extends StatelessWidget {
   const HomeScreenTopCard({
@@ -33,52 +35,62 @@ class HomeScreenTopCard extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("NSE",
-                  style: GoogleFonts.nunito(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14)),
-              Row(
-                children: [
-                  Text("dawd",
-                      style: GoogleFonts.nunito(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 22)),
-                  Text(" (+2.3%)",
-                      style: GoogleFonts.nunito(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16)),
-                ],
-              ),
-              SizedBox(
-                height: 32,
-              ),
-              Text("BSE",
-                  style: GoogleFonts.nunito(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14)),
-              Row(
-                children: [
-                  Text("71,347",
-                      style: GoogleFonts.nunito(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 22)),
-                  Text(" (+2.15%)",
-                      style: GoogleFonts.nunito(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16)),
-                ],
-              ),
-            ],
-          ),
+          child: StreamBuilder<List<YahooFinanceCandleData>>(
+              stream: homePageViewModel.stream,
+              builder: (context, snapshot) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("NSE",
+                        style: GoogleFonts.nunito(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14)),
+                    Row(
+                      children: [
+                        Text(
+                            snapshot.data![0].adjClose
+                                .toStringAsFixed(2)
+                                .toString(),
+                            style: GoogleFonts.nunito(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 22)),
+                        Text(" (+2.3%)",
+                            style: GoogleFonts.nunito(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 32,
+                    ),
+                    Text("BSE",
+                        style: GoogleFonts.nunito(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14)),
+                    Row(
+                      children: [
+                        Text(
+                            snapshot.data![1].adjClose
+                                .toStringAsFixed(2)
+                                .toString(),
+                            style: GoogleFonts.nunito(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 22)),
+                        Text(" (+2.15%)",
+                            style: GoogleFonts.nunito(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16)),
+                      ],
+                    ),
+                  ],
+                );
+              }),
         ),
       ),
     );
