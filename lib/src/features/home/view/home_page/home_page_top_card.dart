@@ -36,7 +36,7 @@ class HomeScreenTopCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: StreamBuilder<List<YahooFinanceCandleData>>(
-              stream: homePageViewModel.stream,
+              stream: homePageViewModel.streamController.stream,
               builder: (context, snapshot) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

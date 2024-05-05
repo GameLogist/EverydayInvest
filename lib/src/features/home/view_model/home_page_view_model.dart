@@ -41,13 +41,21 @@ class HomePageViewModel extends GetxController
   int page = 0;
 
   late final StreamController<List<YahooFinanceCandleData>> streamController;
-  late Stream<List<YahooFinanceCandleData>> stream =
-      Stream.periodic(Duration(seconds: 10))
-          .asyncMap((event) async => await getMajorIndexTickerDataOfTicker());
+  late Stream<List<YahooFinanceCandleData>> stream;
 
   @override
   void onInit() {
     super.onInit();
+
+    streamController =
+        StreamController<List<YahooFinanceCandleData>>.broadcast();
+
+    print("Starting a stream!");
+
+    const oneSec = Duration(seconds: 60);
+    Timer.periodic(oneSec, (Timer t) => loadData());
+    // stream = Stream.periodic(Duration(seconds: 10))
+    //     .asyncMap((event) async => await getMajorIndexTickerDataOfTicker());
 
     // Add all Enum types to home screen tabs
     for (var value in HomeListType.values) {
@@ -59,6 +67,24 @@ class HomePageViewModel extends GetxController
       length: homeBottomWidgetTabs.length,
       vsync: this,
     );
+  }
+
+  @override
+  void dispose() {
+    streamController.close();
+    super.dispose();
+  }
+
+  loadData() {
+    getMajorIndexTickerDataOfTicker().then((value) async {
+      print("data fethced");
+      streamController.add(value);
+      return value;
+    });
+  }
+
+  closeAllStreams() {
+    streamController.close();
   }
 
   Future<List<YahooFinanceCandleData>> getMajorIndexTickerDataOfTicker() async {
