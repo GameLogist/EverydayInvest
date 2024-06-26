@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 
 import 'package:everyday_invest/main.dart';
@@ -40,7 +42,7 @@ class HomePageViewModel extends GetxController
   late TabController tabController;
   int page = 0;
 
-  late final StreamController<List<YahooFinanceCandleData>> streamController;
+  late StreamController<List<YahooFinanceCandleData>> streamController;
   late Stream<List<YahooFinanceCandleData>> stream;
 
   @override
@@ -51,9 +53,7 @@ class HomePageViewModel extends GetxController
         StreamController<List<YahooFinanceCandleData>>.broadcast();
 
     print("Starting a stream!");
-
-    const oneSec = Duration(seconds: 60);
-    Timer.periodic(oneSec, (Timer t) => loadData());
+    startIndexStream();
     // stream = Stream.periodic(Duration(seconds: 10))
     //     .asyncMap((event) async => await getMajorIndexTickerDataOfTicker());
 
@@ -75,9 +75,15 @@ class HomePageViewModel extends GetxController
     super.dispose();
   }
 
+  startIndexStream() {
+    print("startIndexStream");
+    const period = Duration(seconds: 10);
+    Timer.periodic(period, (Timer t) => loadData());
+  }
+
   loadData() {
     getMajorIndexTickerDataOfTicker().then((value) async {
-      print("data fethced");
+      print("loadData");
       streamController.add(value);
       return value;
     });
@@ -88,15 +94,11 @@ class HomePageViewModel extends GetxController
   }
 
   Future<List<YahooFinanceCandleData>> getMajorIndexTickerDataOfTicker() async {
-    indexPriceList.clear();
-    DateTime? dateToFetch =
-        isValidTradeDay(DateTime.now()) && isValidTimeRange(StockTime.Indian)
-            ? DateTime.now()
+    DateTime rightNow = DateTime.now();
+    DateTime dateToFetch =
+        isValidTradeDay(rightNow) && !isBeforeMarketLive(rightNow)
+            ? rightNow
             : lastOpenTime();
-
-    // DateTime dateToFetch = DateTime(DateTime.now().year, DateTime.now().month,
-    //     DateTime.now().day, 12, 0, 0);
-    // dateToFetch = dateToFetch.subtract(Duration(days: 3));
     print("Date to Fetch - $dateToFetch");
 
     final NSEPrice = await YahooFinanceService().getTickerData(
@@ -104,7 +106,11 @@ class HomePageViewModel extends GetxController
       startDate: dateToFetch,
       adjust: true,
     );
-    print("NSE = ${NSEPrice}");
+    if (NSEPrice.isNotEmpty) {
+      print("NSE = $NSEPrice");
+    } else {
+      print("NSE is empty");
+    }
 
     final BSEPrice = await YahooFinanceService().getTickerData(
       '^BSESN',
@@ -112,11 +118,14 @@ class HomePageViewModel extends GetxController
       adjust: true,
     );
 
-    print("BSE = ${BSEPrice}");
+    if (BSEPrice.isNotEmpty) {
+      print("BSE = $BSEPrice");
+    } else {
+      print("BSE is empty");
+    }
 
     if (NSEPrice.isNotEmpty && BSEPrice.isNotEmpty) {
-      indexPriceList.add(NSEPrice.first);
-      indexPriceList.add(BSEPrice.first);
+      indexPriceList = [NSEPrice.first, BSEPrice.first];
       print(
           "Ticker : NSE = ${indexPriceList[0].adjClose}, BSE = ${indexPriceList[1].adjClose}");
     }
@@ -125,9 +134,10 @@ class HomePageViewModel extends GetxController
   }
 
   Future<List<YahooFinanceCandleData>> getDataOfTicker(String ticker) async {
-    DateTime? dateToFetch =
-        isValidTradeDay(DateTime.now()) && isValidTimeRange(StockTime.Indian)
-            ? DateTime.now()
+    DateTime rightNow = DateTime.now();
+    DateTime dateToFetch =
+        isValidTradeDay(rightNow) && !isBeforeMarketLive(rightNow)
+            ? rightNow
             : lastOpenTime();
     final tickerPrice = await YahooFinanceService().getTickerData(
       ticker,
@@ -154,10 +164,22 @@ class HomePageViewModel extends GetxController
             (now.hour == endTime.hour && now.minute <= endTime.minute));
   }
 
+  bool isBeforeMarketLive(DateTime date) {
+    print("isBeforeMarketLive");
+    TimeOfDay now = TimeOfDay.now();
+    return ((now.hour < 9) || (now.hour == 9 && now.minute <= 30));
+  }
+
   DateTime lastOpenTime() {
+    print("lastOpenTime");
     // Set initial time to 4pm today
     DateTime result =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+    if (isBeforeMarketLive(DateTime.now())) {
+      print("Trading has not begun today, getting data for yesterday");
+      result = result.subtract(const Duration(days: 1));
+    }
 
     while (!isValidTradeDay(result)) {
       // Check if today is a holiday
@@ -176,20 +198,7 @@ class HomePageViewModel extends GetxController
         result = result.subtract(const Duration(days: 1));
       }
     }
-
-    // its after 4pm on a trading day
-    // if (result.hour > 16) {
-    //   return result;
-    // } else if (result.hour < 9) {
-    //   // If its before 9 am on a Monday, return 4pm last Friday
-    //   if (DateTime.now().weekday == 1) {
-    //     result = result.subtract(Duration(days: 3));
-    //   } else {
-    //     // Its before 9 am on a trading day
-    //     result = result.subtract(const Duration(days: 1));
-    //   }
-    //   return result;
-    // }
+    print(result);
     return result;
   }
 
@@ -198,6 +207,16 @@ class HomePageViewModel extends GetxController
     bool isHoliday = DateTimeUtils().checkForHolidayOnDate(date);
 
     return isWeekday && !isHoliday;
+  }
+
+  nullorEmptySafeText(List<YahooFinanceCandleData>? data, int index) {
+    if (data != null) {
+      var length = data.length;
+      if (length != 0) {
+        return data[index].adjClose.toStringAsFixed(2).toString();
+      }
+    }
+    return "Loading...";
   }
 
   // void _startIndexPriceStream() async {

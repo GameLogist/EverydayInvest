@@ -49,9 +49,7 @@ class HomeScreenTopCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                            snapshot.data![0].adjClose
-                                .toStringAsFixed(2)
-                                .toString(),
+                            homePageViewModel.nullorEmptySafeText(snapshot.data, 0),
                             style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
@@ -74,9 +72,7 @@ class HomeScreenTopCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                            snapshot.data![1].adjClose
-                                .toStringAsFixed(2)
-                                .toString(),
+                            homePageViewModel.nullorEmptySafeText(snapshot.data, 1),
                             style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
