@@ -23,11 +23,11 @@ class HomeScreenHeader extends StatelessWidget {
               style: GoogleFonts.nunito(
                   color: mDarkBlue, fontWeight: FontWeight.w700, fontSize: 22)),
           Text(
-              homePageViewModel.isValidTimeRange(StockTime.Indian)
+              homePageViewModel.isValidTimeRange(DateTime.now(), StockTime.Indian)
                   ? "Market Live"
                   : "Market Close",
               style: GoogleFonts.nunito(
-                  color: homePageViewModel.isValidTimeRange(StockTime.Indian)
+                  color: homePageViewModel.isValidTimeRange(DateTime.now(), StockTime.Indian)
                       ? Colors.red
                       : Colors.black,
                   fontWeight: FontWeight.w700)),

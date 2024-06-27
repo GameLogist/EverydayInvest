@@ -29,6 +29,14 @@ enum HomeListType {
 
 enum StockTime { Indian, US }
 
+enum Indices {
+  NSE(0),
+  BSE(1);
+
+  const Indices(this.idx);
+  final int idx;
+}
+
 class HomePageViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
   final List<Tab> homeBottomWidgetTabs = [];
@@ -95,10 +103,12 @@ class HomePageViewModel extends GetxController
 
   Future<List<YahooFinanceCandleData>> getMajorIndexTickerDataOfTicker() async {
     DateTime rightNow = DateTime.now();
-    DateTime dateToFetch =
-        isValidTradeDay(rightNow) && !isBeforeMarketLive(rightNow)
-            ? rightNow
-            : lastOpenTime();
+    // DateTime rightNow = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 8, 0, 0);
+    print("Now- $rightNow");
+    DateTime dateToFetch = isValidTradeDay(rightNow) &&
+            isValidTimeRange(rightNow, StockTime.Indian)
+        ? rightNow
+        : lastOpenTime();
     print("Date to Fetch - $dateToFetch");
 
     final NSEPrice = await YahooFinanceService().getTickerData(
@@ -150,18 +160,17 @@ class HomePageViewModel extends GetxController
     return tickerPrice;
   }
 
-  bool isValidTimeRange(StockTime timeType) {
+  bool isValidTimeRange(DateTime time, StockTime timeType) {
     TimeOfDay startTime = timeType == StockTime.Indian
         ? TimeOfDay(hour: 9, minute: 30)
         : TimeOfDay(hour: 19, minute: 0);
     TimeOfDay endTime = timeType == StockTime.Indian
         ? TimeOfDay(hour: 16, minute: 0)
         : TimeOfDay(hour: 24, minute: 0);
-    TimeOfDay now = TimeOfDay.now();
-    return ((now.hour > startTime.hour) ||
-            (now.hour == startTime.hour && now.minute >= startTime.minute)) &&
-        ((now.hour < endTime.hour) ||
-            (now.hour == endTime.hour && now.minute <= endTime.minute));
+    return ((time.hour > startTime.hour) ||
+            (time.hour == startTime.hour && time.minute >= startTime.minute)) &&
+        ((time.hour < endTime.hour) ||
+            (time.hour == endTime.hour && time.minute <= endTime.minute));
   }
 
   bool isBeforeMarketLive(DateTime date) {
@@ -209,14 +218,30 @@ class HomePageViewModel extends GetxController
     return isWeekday && !isHoliday;
   }
 
-  nullorEmptySafeText(List<YahooFinanceCandleData>? data, int index) {
+  nullorEmptySafeText_AdjClose(
+      List<YahooFinanceCandleData>? data, Indices indice) {
     if (data != null) {
       var length = data.length;
       if (length != 0) {
-        return data[index].adjClose.toStringAsFixed(2).toString();
+        return data[indice.idx].adjClose.toStringAsFixed(2).toString();
       }
     }
     return "Loading...";
+  }
+
+  nullorEmptySafeText_DayDiffPercent(
+      List<YahooFinanceCandleData>? data, Indices indice) {
+    if (data != null) {
+      var length = data.length;
+      if (length != 0) {
+        num percent = (data[indice.idx].adjClose - data[indice.idx].open) /
+            data[indice.idx].open *
+            100;
+        percent = num.parse(percent.toStringAsFixed(2));
+        return percent >= 0 ? "+$percent%" : "-$percent%";
+      }
+    }
+    return "";
   }
 
   // void _startIndexPriceStream() async {

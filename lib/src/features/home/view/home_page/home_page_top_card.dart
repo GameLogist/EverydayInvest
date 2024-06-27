@@ -49,12 +49,13 @@ class HomeScreenTopCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                            homePageViewModel.nullorEmptySafeText(snapshot.data, 0),
+                            homePageViewModel.nullorEmptySafeText_AdjClose(
+                                snapshot.data, Indices.NSE),
                             style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 22)),
-                        Text(" (+2.3%)",
+                        Text(" (${homePageViewModel.nullorEmptySafeText_DayDiffPercent(snapshot.data, Indices.NSE)})",
                             style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
@@ -72,12 +73,13 @@ class HomeScreenTopCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                            homePageViewModel.nullorEmptySafeText(snapshot.data, 1),
+                            homePageViewModel.nullorEmptySafeText_AdjClose(
+                                snapshot.data, Indices.BSE),
                             style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 22)),
-                        Text(" (+2.15%)",
+                        Text(" (${homePageViewModel.nullorEmptySafeText_DayDiffPercent(snapshot.data, Indices.BSE)})",
                             style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
