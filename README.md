@@ -1,4 +1,4 @@
-# Zenfolia (formaly known as EveryDayInvest)
+# Zenfolio (formaly known as EveryDayInvest)
 
 A Finance Market based Flutter project whose goal is to make financial knowledge and exploration easy and fun especially for beginners.
 It offers simple UI focussing on the import stuff like Index Points, stocks with the hightest upward movement and so on.
