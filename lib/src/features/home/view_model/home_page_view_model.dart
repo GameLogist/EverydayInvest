@@ -238,7 +238,7 @@ class HomePageViewModel extends GetxController
             data[indice.idx].open *
             100;
         percent = num.parse(percent.toStringAsFixed(2));
-        return percent >= 0 ? "+$percent%" : "-$percent%";
+        return percent >= 0 ? "+$percent%" : "$percent%";
       }
     }
     return "";

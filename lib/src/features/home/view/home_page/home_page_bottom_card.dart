@@ -1,7 +1,9 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/features/home/view/home_page/stock_tile.dart';
+import 'package:everyday_invest/src/features/home/view/stock_detail_page/stock_details_view.dart';
 import 'package:everyday_invest/src/features/home/view_model/home_page_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreenBottomCard extends StatelessWidget {
@@ -54,11 +56,16 @@ class HomeScreenBottomCard extends StatelessWidget {
                                 padding: EdgeInsets.zero,
                                 itemCount: stockList.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return StockListTile(
-                                      name: stockList[index].name.toString(),
-                                      ticker:
-                                          stockList[index].ticker.toString(),
-                                      price: stockList[index].price.toString());
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.to(() => StockDetailsView());
+                                    },
+                                    child: StockListTile(
+                                        name: stockList[index].name.toString(),
+                                        ticker:
+                                            stockList[index].ticker.toString(),
+                                        price: stockList[index].price.toString()),
+                                  );
                                 })
                         ]),
                   ),
