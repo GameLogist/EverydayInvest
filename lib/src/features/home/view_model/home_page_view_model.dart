@@ -61,7 +61,7 @@ class HomePageViewModel extends GetxController
         StreamController<List<YahooFinanceCandleData>>.broadcast();
 
     print("Starting a stream!");
-    startIndexStream();
+    // startIndexStream();
     // stream = Stream.periodic(Duration(seconds: 10))
     //     .asyncMap((event) async => await getMajorIndexTickerDataOfTicker());
 
@@ -157,6 +157,25 @@ class HomePageViewModel extends GetxController
 
     print("Ticker : $ticker = ${indexPriceList[0].adjClose}");
 
+    return tickerPrice;
+  }
+
+  // https://query2.finance.yahoo.com/v8/finance/chart/GOOG
+  Future<List<YahooFinanceCandleData>> getTickerDataList(String ticker) async {
+    DateTime rightNow = DateTime.now();
+    DateTime dateToFetch =
+        isValidTradeDay(rightNow) && !isBeforeMarketLive(rightNow)
+            ? rightNow
+            : lastOpenTime();
+    final tickerPrice = await YahooFinanceService().getTickerDataList(
+      ['COALINDIA.NS', 'HDFCBANK.NS'],
+    );
+
+    if (tickerPrice.isNotEmpty) {
+      print("tickerPrice = $tickerPrice");
+    } else {
+      print("tickerPrice is empty");
+    }
     return tickerPrice;
   }
 

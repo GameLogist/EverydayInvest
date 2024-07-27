@@ -4,6 +4,7 @@ import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/authentication/model/user_model.dart';
 import 'package:everyday_invest/src/features/home/view/account_page/update_account_page.dart';
 import 'package:everyday_invest/src/features/home/view_model/account_page_view_model.dart';
+import 'package:everyday_invest/src/features/home/view_model/home_page_view_model.dart';
 import 'package:everyday_invest/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:everyday_invest/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     final AccountPageViewModel viewModel = Get.put(AccountPageViewModel());
+    final HomePageViewModel homePageViewModel = Get.put(HomePageViewModel());
 
     return SizedBox.expand(
       child: Container(
@@ -118,7 +120,9 @@ class AccountPage extends StatelessWidget {
                             ProfileMenuListTile(
                               text: mMenuItem2,
                               icon: LineAwesomeIcons.scroll,
-                              onPress: () {},
+                              onPress: () {
+                                homePageViewModel.getTickerDataList("test");
+                              },
                             ),
                             ProfileMenuListTile(
                               text: mMenuItem3,
