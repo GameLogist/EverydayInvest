@@ -58,7 +58,7 @@ class HomeScreenBottomCard extends StatelessWidget {
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      Get.to(() => StockDetailsView());
+                                      Get.to(() => StockDetailsView(stock: stockList[index],));
                                     },
                                     child: StockListTile(
                                         name: stockList[index].name.toString(),

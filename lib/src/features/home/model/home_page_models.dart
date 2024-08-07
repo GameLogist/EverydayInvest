@@ -1,6 +1,14 @@
 import 'dart:ui';
 
-enum StockType { indice, indianStock, usStock, etf }
+enum StockType {
+  indianStock("Equity Stock"),
+  usStock("US Stock"),
+  etf("ETF"),
+  indice("Indice");
+
+  const StockType(this.text);
+  final String text;
+}
 
 class StockInfo {
   final String name;
