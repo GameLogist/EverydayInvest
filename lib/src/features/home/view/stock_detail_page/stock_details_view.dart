@@ -1,6 +1,9 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/home/model/home_page_models.dart';
+import 'package:everyday_invest/src/features/home/view_model/stock_details_view_model.dart';
+import 'package:everyday_invest/src/utils/fl_charts/price_points.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +16,8 @@ class StockDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final StockDetailsPageViewModel viewModel =
+        Get.put(StockDetailsPageViewModel(stock));
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -99,7 +104,7 @@ class StockDetailsView extends StatelessWidget {
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18)),
-                              Text("+23.8%",
+                              Text("+${viewModel.cagr}%",
                                   style: GoogleFonts.nunito(
                                       color: Colors.green,
                                       fontWeight: FontWeight.w700,
@@ -117,7 +122,7 @@ class StockDetailsView extends StatelessWidget {
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18)),
-                              Text("23",
+                              Text("${viewModel.pe}",
                                   style: GoogleFonts.nunito(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700,
@@ -139,7 +144,7 @@ class StockDetailsView extends StatelessWidget {
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18)),
-                              Text("234551",
+                              Text("${viewModel.marketCap}",
                                   style: GoogleFonts.nunito(
                                       color: Colors.green,
                                       fontWeight: FontWeight.w700,
@@ -157,7 +162,7 @@ class StockDetailsView extends StatelessWidget {
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18)),
-                              Text("41.82",
+                              Text("${viewModel.eps}",
                                   style: GoogleFonts.nunito(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700,
@@ -166,11 +171,32 @@ class StockDetailsView extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
+            AspectRatio(
+              aspectRatio: 2,
+              child: LineChart(LineChartData(
+                lineBarsData: [
+                  LineChartBarData(
+                      spots: viewModel.stockPricaData
+                          .map((points) => FlSpot(points.x, points.y))
+                          .toList(),
+                      isCurved: true,
+                      dotData: FlDotData(show: false),
+                      color: mDarkBlue)
+                ],
+                borderData: FlBorderData(
+                  show: false,
+                ),
+                gridData: FlGridData(show: false),
+                titlesData: FlTitlesData(
+                  show: false,
+                ),
+              )),
+            )
           ],
         ),
       ),
