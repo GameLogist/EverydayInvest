@@ -58,3 +58,10 @@ const String mMenuItem2 = "Information";
 const String mMenuItem3 = "Notifications";
 const String mMenuItem4 = "Policies and Agreements";
 const String mMenuItem5 = mLogout;
+
+// Stock Details Page
+const String mCurrentPrice = "Current Price";
+const String mCAGR = "CAGR";
+const String mPE = "P/E";
+const String mMarketCap = "Market Cap";
+const String mEPS = "EPS";

@@ -62,7 +62,7 @@ class StockDetailsView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Current Price",
+                    Text(mCurrentPrice,
                         style: GoogleFonts.nunito(
                             color: Colors.grey,
                             fontWeight: FontWeight.w700,
@@ -94,7 +94,7 @@ class StockDetailsView extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("CAGR",
+                              Text(mCAGR,
                                   style: GoogleFonts.nunito(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w500,
@@ -112,7 +112,7 @@ class StockDetailsView extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("P/E",
+                              Text(mPE,
                                   style: GoogleFonts.nunito(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w500,
@@ -134,12 +134,12 @@ class StockDetailsView extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("CAGR",
+                              Text(mMarketCap,
                                   style: GoogleFonts.nunito(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18)),
-                              Text("+23.8%",
+                              Text("234551",
                                   style: GoogleFonts.nunito(
                                       color: Colors.green,
                                       fontWeight: FontWeight.w700,
@@ -152,12 +152,12 @@ class StockDetailsView extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("P/E",
+                              Text(mEPS,
                                   style: GoogleFonts.nunito(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w500,
                                       fontSize: 18)),
-                              Text("23",
+                              Text("41.82",
                                   style: GoogleFonts.nunito(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700,
