@@ -30,12 +30,16 @@ class CoursesGridTile extends StatelessWidget {
               height: MediaQuery.of(context).size.height / 7,
               color: mLavender,
             ),
-            Text(courseData.title,
-                style: GoogleFonts.nunito(
-                    color: mDarkBlue,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16),
-                maxLines: 2)
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(courseData.title,
+                  style: GoogleFonts.nunito(
+                      color: mDarkBlue, 
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16),
+                  overflow: TextOverflow.fade,
+                  maxLines: 2),
+            )
           ],
         ),
       ),
