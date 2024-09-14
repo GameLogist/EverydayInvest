@@ -1,14 +1,11 @@
 import 'package:everyday_invest/src/common_widgets/fl_chart_widgets/line_chart_widget.dart';
 import 'package:everyday_invest/src/common_widgets/fl_chart_widgets/pie_chart_widget.dart';
 import 'package:everyday_invest/src/constants/colors.dart';
-import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/home/view_model/investments_page_view_model.dart';
 import 'package:everyday_invest/src/utils/fl_charts/price_points.dart';
-import 'package:everyday_invest/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class InvestmentsPage extends StatelessWidget {

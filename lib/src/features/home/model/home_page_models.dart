@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 enum StockType {
   indianStock("Equity Stock"),
   usStock("US Stock"),
@@ -15,10 +13,14 @@ class StockInfo {
   final String ticker;
   final double price;
   final StockType type;
+  double absoluteChange;
+  String percentChange;
 
   StockInfo(
       {required this.name,
       required this.ticker,
       required this.price,
-      required this.type});
+      required this.type,
+      this.absoluteChange = 0.0,
+      this.percentChange = ''});
 }

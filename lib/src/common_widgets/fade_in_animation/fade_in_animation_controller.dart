@@ -1,5 +1,4 @@
 import 'package:everyday_invest/src/features/authentication/view/onboarding/onboarding_view.dart';
-import 'package:everyday_invest/src/features/authentication/view/welcome/welcome_view.dart';
 import 'package:get/get.dart';
 
 class FadeInAnimationController extends GetxController {

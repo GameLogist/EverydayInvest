@@ -3,9 +3,6 @@ import 'package:everyday_invest/src/features/home/view/navigation_page.dart';
 import 'package:everyday_invest/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();

@@ -1,41 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:async';
-
-import 'package:everyday_invest/main.dart';
-import 'package:everyday_invest/src/constants/colors.dart';
-import 'package:everyday_invest/src/constants/image_strings.dart';
-import 'package:everyday_invest/src/constants/text_string.dart';
-import 'package:everyday_invest/src/features/authentication/model/onboarding_model.dart';
-import 'package:everyday_invest/src/features/authentication/view/onboarding/onboarding_page_view.dart';
 import 'package:everyday_invest/src/features/home/model/home_page_models.dart';
-import 'package:everyday_invest/src/features/home/view/navigation_page.dart';
 import 'package:everyday_invest/src/testing/test_data.dart';
+import 'package:everyday_invest/src/utils/enums/StockEnums.dart';
 import 'package:everyday_invest/src/utils/util_funtions/DateTimeUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:yahoo_finance_data_reader/yahoo_finance_data_reader.dart';
-
-enum HomeListType {
-  indianStock("IND Stocks"),
-  usStocks("US Stocks"),
-  etfs("ETFs"),
-  indices("Indices");
-
-  const HomeListType(this.text);
-  final String text;
-}
-
-enum StockTime { Indian, US }
-
-enum Indices {
-  NSE(0),
-  BSE(1);
-
-  const Indices(this.idx);
-  final int idx;
-}
+import 'package:html/parser.dart' as parser;
+import 'package:http/http.dart' as http;
 
 class HomePageViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -43,8 +17,8 @@ class HomePageViewModel extends GetxController
 
   final List<List<StockInfo>> homePageStockInfo =
       TestData().homePageStockInfoTest;
-  final List<StockInfo> homeTopGainers = TestData().homeTopGainersTest;
-  final List<StockInfo> homeTopLosers = TestData().homeTopLosersTest;
+  RxList<StockInfo> homeTopGainers = <StockInfo>[].obs;
+  RxList<StockInfo> homeTopLosers = <StockInfo>[].obs;
 
   List<YahooFinanceCandleData> indexPriceList = [];
   late TabController tabController;
@@ -75,6 +49,9 @@ class HomePageViewModel extends GetxController
       length: homeBottomWidgetTabs.length,
       vsync: this,
     );
+
+    fetchTopGainers();
+    fetchTopLosers();
   }
 
   @override
@@ -105,10 +82,10 @@ class HomePageViewModel extends GetxController
     DateTime rightNow = DateTime.now();
     // DateTime rightNow = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 8, 0, 0);
     print("Now- $rightNow");
-    DateTime dateToFetch = isValidTradeDay(rightNow) &&
-            isValidTimeRange(rightNow, StockTime.Indian)
+    DateTime dateToFetch = DateTimeUtils().isValidTradeDay(rightNow) &&
+            DateTimeUtils().isValidTimeRange(rightNow, StockTime.Indian)
         ? rightNow
-        : lastOpenTime();
+        : DateTimeUtils().lastOpenTime();
     print("Date to Fetch - $dateToFetch");
 
     final NSEPrice = await YahooFinanceService().getTickerData(
@@ -145,10 +122,10 @@ class HomePageViewModel extends GetxController
 
   Future<List<YahooFinanceCandleData>> getDataOfTicker(String ticker) async {
     DateTime rightNow = DateTime.now();
-    DateTime dateToFetch =
-        isValidTradeDay(rightNow) && !isBeforeMarketLive(rightNow)
-            ? rightNow
-            : lastOpenTime();
+    DateTime dateToFetch = DateTimeUtils().isValidTradeDay(rightNow) &&
+            !DateTimeUtils().isBeforeMarketLive(rightNow)
+        ? rightNow
+        : DateTimeUtils().lastOpenTime();
     final tickerPrice = await YahooFinanceService().getTickerData(
       ticker,
       startDate: dateToFetch,
@@ -163,10 +140,10 @@ class HomePageViewModel extends GetxController
   // https://query2.finance.yahoo.com/v8/finance/chart/GOOG
   Future<List<YahooFinanceCandleData>> getTickerDataList(String ticker) async {
     DateTime rightNow = DateTime.now();
-    DateTime dateToFetch =
-        isValidTradeDay(rightNow) && !isBeforeMarketLive(rightNow)
-            ? rightNow
-            : lastOpenTime();
+    DateTime dateToFetch = DateTimeUtils().isValidTradeDay(rightNow) &&
+            !DateTimeUtils().isBeforeMarketLive(rightNow)
+        ? rightNow
+        : DateTimeUtils().lastOpenTime();
     final tickerPrice = await YahooFinanceService().getTickerDataList(
       ['COALINDIA.NS', 'HDFCBANK.NS'],
     );
@@ -179,62 +156,121 @@ class HomePageViewModel extends GetxController
     return tickerPrice;
   }
 
-  bool isValidTimeRange(DateTime time, StockTime timeType) {
-    TimeOfDay startTime = timeType == StockTime.Indian
-        ? TimeOfDay(hour: 9, minute: 30)
-        : TimeOfDay(hour: 19, minute: 0);
-    TimeOfDay endTime = timeType == StockTime.Indian
-        ? TimeOfDay(hour: 16, minute: 0)
-        : TimeOfDay(hour: 24, minute: 0);
-    return ((time.hour > startTime.hour) ||
-            (time.hour == startTime.hour && time.minute >= startTime.minute)) &&
-        ((time.hour < endTime.hour) ||
-            (time.hour == endTime.hour && time.minute <= endTime.minute));
+  // HTTP WEB SRAPING
+  Future<bool> fetchTopGainers() async {
+    homeTopGainers.clear();
+    final response = await http.Client()
+        .get(Uri.parse('https://www.google.com/finance/markets/gainers'));
+
+    if (response.statusCode == 200) {
+      //Getting the html document from the response
+
+      var document = parser.parse(response.body);
+      try {
+        //Scraping the first article title
+        var responseString1 = document.getElementsByClassName('sbnBtf')[0];
+
+        // print("Response - ${responseString1.text}");
+        var compList = responseString1.text.split('add_circle_outline');
+        // print("Length - ${compList.length} : ${compList}");
+        for (var stock in compList) {
+          final (stockName, ticker, currentPrice, percentChange) =
+              parseGainerData(stock);
+
+          homeTopGainers.add(StockInfo(
+              name: stockName,
+              ticker: ticker,
+              price: double.parse(currentPrice),
+              type: StockType.indianStock,
+              percentChange: percentChange));
+        }
+        homeTopGainers.refresh();
+        return true;
+      } catch (e) {
+        print('ERROR: ${response.statusCode}.');
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
-  bool isBeforeMarketLive(DateTime date) {
-    print("isBeforeMarketLive");
-    TimeOfDay now = TimeOfDay.now();
-    return ((now.hour < 9) || (now.hour == 9 && now.minute <= 30));
+  Future<bool> fetchTopLosers() async {
+    homeTopLosers.clear();
+    final response = await http.Client()
+        .get(Uri.parse('https://www.google.com/finance/markets/losers'));
+
+    if (response.statusCode == 200) {
+      //Getting the html document from the response
+
+      var document = parser.parse(response.body);
+      try {
+        //Scraping the first article title
+        var responseString1 = document.getElementsByClassName('sbnBtf')[0];
+
+        // print("Response - ${responseString1.text}");
+        var compList = responseString1.text.split('add_circle_outline');
+        // print("Length - ${compList.length} : ${compList}");
+        for (var stock in compList) {
+          final (stockName, ticker, currentPrice, percentChange) =
+              parseGainerData(stock);
+
+          homeTopLosers.add(StockInfo(
+              name: stockName,
+              ticker: ticker,
+              price: double.parse(currentPrice),
+              type: StockType.indianStock,
+              percentChange: percentChange));
+        }
+        homeTopLosers.refresh();
+        return true;
+      } catch (e) {
+        print('ERROR: ${response.statusCode}.');
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
-  DateTime lastOpenTime() {
-    print("lastOpenTime");
-    // Set initial time to 4pm today
-    DateTime result =
-        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  (String, String, String, String) parseGainerData(String data) {
+    print(data);
+    // Input = ATAL-REAtal Realtech Rights₹0.32+₹0.09039.13%
+    final splittedByRs = data.split('₹');
 
-    if (isBeforeMarketLive(DateTime.now())) {
-      print("Trading has not begun today, getting data for yesterday");
-      result = result.subtract(const Duration(days: 1));
+    if (splittedByRs.length != 3) {
+      print("Data not proper!");
+      return ("", "", "", "");
     }
 
-    while (!isValidTradeDay(result)) {
-      // Check if today is a holiday
-      if (DateTimeUtils().checkForHolidayOnDate(result)) {
-        print("Today is a holiday");
-        result = result.subtract(const Duration(days: 1));
-      }
-      // Return 4pm last Friday if today is Sunday or Saturday
-      if (result.weekday == 7) {
-        // Sunday
-        print("Today is a Sunday");
-        result = result.subtract(const Duration(days: 2));
-      } else if (result.weekday == 6) {
-        // Saturday
-        print("Today is a Saturday");
-        result = result.subtract(const Duration(days: 1));
+    // splittedByRs = ["ATAL-REAtal Realtech Rights" , "0.32+" , "0.09039.13%"]
+    var stockNameAndTicker = splittedByRs[0];
+    var charArray = stockNameAndTicker.split('');
+    var stockName = "";
+    var ticker = "";
+    for (int i = 0; i < charArray.length; i++) {
+      if (charArray[i].codeUnitAt(0) >= 97 &&
+          charArray[i].codeUnitAt(0) <= 122) {
+        ticker = stockNameAndTicker.substring(0, i - 1);
+        stockName =
+            stockNameAndTicker.substring(i - 1, stockNameAndTicker.length);
+        break;
       }
     }
-    print(result);
-    return result;
-  }
+    var plauOrMinus = splittedByRs[1][splittedByRs[1].length - 1];
+    final currentPrice = splittedByRs[1]
+        .substring(0, splittedByRs[1].length - 1)
+        .replaceAll(RegExp(r','), '');
 
-  bool isValidTradeDay(DateTime date) {
-    bool isWeekday = date.weekday >= 1 && date.weekday <= 5;
-    bool isHoliday = DateTimeUtils().checkForHolidayOnDate(date);
+    var splitter = splittedByRs[2].indexOf('.');
+    final absoluteChange = splittedByRs[2].substring(0, splitter + 3);
+    var percentChange = plauOrMinus + 
+        splittedByRs[2].substring(splitter + 3, splittedByRs[2].length - 1);
 
-    return isWeekday && !isHoliday;
+    print(
+        "Stock Name - ${stockName}, Ticker - ${ticker}, Price - ${currentPrice}, Change - ${percentChange}");
+
+    return (stockName, ticker, currentPrice, percentChange);
   }
 
   nullorEmptySafeText_AdjClose(
@@ -262,9 +298,4 @@ class HomePageViewModel extends GetxController
     }
     return "";
   }
-
-  // void _startIndexPriceStream() async {
-  //   Timer.periodic(
-  //       Duration(seconds: 10), (Timer t) => getMajorIndexTickerDataOfTicker());
-  // }
 }

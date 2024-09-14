@@ -6,12 +6,10 @@ import 'package:everyday_invest/src/features/home/view/account_page/update_accou
 import 'package:everyday_invest/src/features/home/view_model/account_page_view_model.dart';
 import 'package:everyday_invest/src/features/home/view_model/home_page_view_model.dart';
 import 'package:everyday_invest/src/repository/authentication_repository/authentication_repository.dart';
-import 'package:everyday_invest/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:line_icons/line_icons.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -61,7 +59,7 @@ class AccountPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(100),
                                     color: mDarkBlue),
                                 child: const Icon(
-                                  LineAwesomeIcons.alternate_pencil,
+                                  LineAwesomeIcons.pencil_alt_solid,
                                   color: Colors.white,
                                   size: 20,
                                 ),
@@ -112,14 +110,14 @@ class AccountPage extends StatelessWidget {
                           children: [
                             ProfileMenuListTile(
                               text: mMenuItem1,
-                              icon: LineAwesomeIcons.cog,
+                              icon: LineAwesomeIcons.cog_solid,
                               onPress: () {
                                 viewModel.getUserDetails();
                               },
                             ),
                             ProfileMenuListTile(
                               text: mMenuItem2,
-                              icon: LineAwesomeIcons.scroll,
+                              icon: LineAwesomeIcons.scroll_solid,
                               onPress: () {
                                 homePageViewModel.getTickerDataList("test");
                               },
@@ -134,12 +132,12 @@ class AccountPage extends StatelessWidget {
                             ),
                             ProfileMenuListTile(
                               text: mMenuItem4,
-                              icon: LineAwesomeIcons.landmark,
+                              icon: LineAwesomeIcons.landmark_solid,
                               onPress: () {},
                             ),
                             ProfileMenuListTile(
                               text: mLogout,
-                              icon: LineAwesomeIcons.poo,
+                              icon: LineAwesomeIcons.poo_solid,
                               textColor: Colors.red,
                               endIcon: false,
                               onPress: () {
@@ -210,7 +208,7 @@ class ProfileMenuListTile extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   color: Colors.grey.withOpacity(0.1)),
-              child: const Icon(LineAwesomeIcons.angle_right, color: mDarkBlue),
+              child: const Icon(LineAwesomeIcons.angle_right_solid, color: mDarkBlue),
             )
           : null,
     );

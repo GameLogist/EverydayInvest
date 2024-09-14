@@ -2,7 +2,6 @@ import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/home/model/home_page_models.dart';
 import 'package:everyday_invest/src/features/home/view_model/stock_details_view_model.dart';
-import 'package:everyday_invest/src/utils/fl_charts/price_points.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +25,7 @@ class StockDetailsView extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(LineAwesomeIcons.angle_left),
+          icon: const Icon(LineAwesomeIcons.angle_left_solid),
         ),
         title: Text("Stock Info",
             style: GoogleFonts.nunito(

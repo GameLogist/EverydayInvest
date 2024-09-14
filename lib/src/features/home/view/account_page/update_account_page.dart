@@ -23,7 +23,7 @@ class UpdateProfileView extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(LineAwesomeIcons.angle_left),
+          icon: const Icon(LineAwesomeIcons.angle_left_solid),
         ),
         title: Text(mEditProfile,
             style: GoogleFonts.nunito(
@@ -57,7 +57,7 @@ class UpdateProfileView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(100),
                               color: mDarkBlue),
                           child: const Icon(
-                            LineAwesomeIcons.camera,
+                            LineAwesomeIcons.camera_solid,
                             color: Colors.white,
                             size: 20,
                           ),

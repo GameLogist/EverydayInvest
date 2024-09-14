@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:everyday_invest/src/features/authentication/model/user_model.dart';
 import 'package:everyday_invest/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:everyday_invest/src/repository/user_repository/user_repository.dart';

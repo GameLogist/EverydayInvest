@@ -1,10 +1,6 @@
-import 'package:everyday_invest/main.dart';
 import 'package:everyday_invest/src/constants/sizes.dart';
 import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/authentication/view_model/login_view_model.dart';
-import 'package:everyday_invest/src/features/home/view/navigation_page.dart';
-import 'package:everyday_invest/src/repository/authentication_repository/authentication_repository.dart';
-import 'package:everyday_invest/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

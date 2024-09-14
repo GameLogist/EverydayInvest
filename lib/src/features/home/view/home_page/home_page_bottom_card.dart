@@ -5,6 +5,7 @@ import 'package:everyday_invest/src/features/home/view_model/home_page_view_mode
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:math';
 
 class HomeScreenBottomCard extends StatelessWidget {
   HomeScreenBottomCard({
@@ -58,13 +59,18 @@ class HomeScreenBottomCard extends StatelessWidget {
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      Get.to(() => StockDetailsView(stock: stockList[index],));
+                                      Get.to(() => StockDetailsView(
+                                            stock: stockList[index],
+                                          ));
                                     },
                                     child: StockListTile(
                                         name: stockList[index].name.toString(),
                                         ticker:
                                             stockList[index].ticker.toString(),
-                                        price: stockList[index].price.toString()),
+                                        price:
+                                            stockList[index].price.toString(),
+                                        percentChange:
+                                            stockList[index].percentChange),
                                   );
                                 })
                         ]),
@@ -88,14 +94,17 @@ class HomeScreenBottomCard extends StatelessWidget {
                             Container(
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    itemCount:
-                                        homePageViewModel.homeTopGainers.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return StockListTile(
+                                child: Obx(
+                                  () => ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      itemCount: min(
+                                          homePageViewModel
+                                              .homeTopGainers.length,
+                                          5),
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return StockListTile(
                                           name: homePageViewModel
                                               .homeTopGainers[index].name
                                               .toString(),
@@ -104,8 +113,13 @@ class HomeScreenBottomCard extends StatelessWidget {
                                               .toString(),
                                           price: homePageViewModel
                                               .homeTopGainers[index].price
-                                              .toString());
-                                    }),
+                                              .toString(),
+                                          percentChange: homePageViewModel
+                                              .homeTopGainers[index]
+                                              .percentChange,
+                                        );
+                                      }),
+                                ),
                               ),
                             )
                           ],
@@ -132,24 +146,30 @@ class HomeScreenBottomCard extends StatelessWidget {
                             Container(
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    itemCount:
-                                        homePageViewModel.homeTopLosers.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return StockListTile(
-                                          name: homePageViewModel
-                                              .homeTopLosers[index].name
-                                              .toString(),
-                                          ticker: homePageViewModel
-                                              .homeTopLosers[index].ticker
-                                              .toString(),
-                                          price: homePageViewModel
-                                              .homeTopLosers[index].price
-                                              .toString());
-                                    }),
+                                child: Obx(
+                                  () => ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      itemCount: min(
+                                          homePageViewModel.homeTopLosers.length,
+                                          5),
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return StockListTile(
+                                            name: homePageViewModel
+                                                .homeTopLosers[index].name
+                                                .toString(),
+                                            ticker: homePageViewModel
+                                                .homeTopLosers[index].ticker
+                                                .toString(),
+                                            price: homePageViewModel
+                                                .homeTopLosers[index].price
+                                                .toString(),
+                                            percentChange: homePageViewModel
+                                                .homeTopLosers[index]
+                                                .percentChange);
+                                      }),
+                                ),
                               ),
                             )
                           ],

@@ -1,11 +1,9 @@
-import 'package:everyday_invest/main.dart';
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/constants/image_strings.dart';
 import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/authentication/model/onboarding_model.dart';
 import 'package:everyday_invest/src/features/authentication/view/onboarding/onboarding_page_view.dart';
 import 'package:everyday_invest/src/features/authentication/view/welcome/welcome_view.dart';
-import 'package:everyday_invest/src/features/home/view/navigation_page.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 

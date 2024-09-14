@@ -5,12 +5,14 @@ class StockListTile extends StatelessWidget {
   final String name;
   final String ticker;
   final String price;
+  final String percentChange;
 
   const StockListTile(
       {super.key,
       required this.name,
       required this.ticker,
-      required this.price});
+      required this.price,
+      required this.percentChange});
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +39,24 @@ class StockListTile extends StatelessWidget {
                     fontSize: 12),
               ),
             ]),
-            Text(
-              price.toString(),
-              style: GoogleFonts.nunito(
-                  color: Colors.green,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  "₹${price.toString()}",
+                  style: GoogleFonts.nunito(
+                      color: Colors.green,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16),
+                ),
+                Text(
+                  percentChange.isEmpty ? "" : "${percentChange}%",
+                  style: GoogleFonts.nunito(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12),
+                ),
+              ],
             ),
           ],
         ),

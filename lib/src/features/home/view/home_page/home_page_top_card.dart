@@ -1,7 +1,7 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/features/home/view_model/home_page_view_model.dart';
+import 'package:everyday_invest/src/utils/enums/StockEnums.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yahoo_finance_data_reader/yahoo_finance_data_reader.dart';
 

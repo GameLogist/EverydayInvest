@@ -1,13 +1,8 @@
 import 'package:everyday_invest/src/constants/colors.dart';
-import 'package:everyday_invest/src/constants/image_strings.dart';
-import 'package:everyday_invest/src/constants/text_string.dart';
 import 'package:everyday_invest/src/features/home/view/learn_page/model/courses_model.dart';
 import 'package:everyday_invest/src/features/home/view_model/learn_page_view_model.dart';
-import 'package:everyday_invest/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icons.dart';
 
 class ModuleJourneyCard extends StatelessWidget {
   const ModuleJourneyCard({

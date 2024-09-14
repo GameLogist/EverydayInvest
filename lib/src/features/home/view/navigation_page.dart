@@ -1,13 +1,9 @@
 import 'package:everyday_invest/src/constants/colors.dart';
-import 'package:everyday_invest/src/constants/text_string.dart';
-import 'package:everyday_invest/src/features/authentication/view/splash_screen/splash_view.dart';
 import 'package:everyday_invest/src/features/home/view/account_page/account_page.dart';
 import 'package:everyday_invest/src/features/home/view/home_page/home_page.dart';
 import 'package:everyday_invest/src/features/home/view/investments_page/investments_page.dart';
 import 'package:everyday_invest/src/features/home/view/learn_page/learn_page.dart';
-import 'package:everyday_invest/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 

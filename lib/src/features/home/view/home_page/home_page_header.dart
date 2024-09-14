@@ -1,5 +1,7 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/features/home/view_model/home_page_view_model.dart';
+import 'package:everyday_invest/src/utils/enums/StockEnums.dart';
+import 'package:everyday_invest/src/utils/util_funtions/DateTimeUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,11 +25,11 @@ class HomeScreenHeader extends StatelessWidget {
               style: GoogleFonts.nunito(
                   color: mDarkBlue, fontWeight: FontWeight.w700, fontSize: 22)),
           Text(
-              homePageViewModel.isValidTimeRange(DateTime.now(), StockTime.Indian)
+              DateTimeUtils().isValidTimeRange(DateTime.now(), StockTime.Indian)
                   ? "Market Live"
                   : "Market Close",
               style: GoogleFonts.nunito(
-                  color: homePageViewModel.isValidTimeRange(DateTime.now(), StockTime.Indian)
+                  color: DateTimeUtils().isValidTimeRange(DateTime.now(), StockTime.Indian)
                       ? Colors.red
                       : Colors.black,
                   fontWeight: FontWeight.w700)),

@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:everyday_invest/src/features/authentication/model/user_model.dart';
 import 'package:everyday_invest/src/features/home/view/learn_page/model/courses_model.dart';
 import 'package:everyday_invest/src/features/home/view/learn_page/model/module_journey_card_model.dart';
 import 'package:everyday_invest/src/localizations/learn/modules/1%20Intoduction%20to%20Company%20Valuation/a.%20Valuing%20a%20Company/1_a_module_widget.dart';
 import 'package:everyday_invest/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:everyday_invest/src/repository/user_repository/user_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LearnPageViewModel extends GetxController {

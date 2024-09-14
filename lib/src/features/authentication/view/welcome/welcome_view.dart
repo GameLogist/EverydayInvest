@@ -1,4 +1,3 @@
-import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/constants/image_strings.dart';
 import 'package:everyday_invest/src/constants/sizes.dart';
 import 'package:everyday_invest/src/constants/text_string.dart';
