@@ -56,7 +56,7 @@ class StockDetailsPageViewModel extends GetxController {
   // HTTP WEB SRAPING
   Future<bool> fetchFinancials() async {
     final response = await http.Client()
-        .get(Uri.parse('https://www.google.com/finance/markets/gainers'));
+        .get(Uri.parse('https://www.google.com/finance/quote/${stock.ticker}:NSE'));
 
     if (response.statusCode == 200) {
       //Getting the html document from the response

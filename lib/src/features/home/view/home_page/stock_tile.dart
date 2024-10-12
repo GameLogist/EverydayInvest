@@ -23,22 +23,25 @@ class StockListTile extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                name.toString(),
-                style: GoogleFonts.nunito(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16),
-              ),
-              Text(
-                ticker.toString(),
-                style: GoogleFonts.nunito(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12),
-              ),
-            ]),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(
+                  name.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.nunito(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16),
+                ),
+                Text(
+                  ticker.toString(),
+                  style: GoogleFonts.nunito(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12),
+                ),
+              ]),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [

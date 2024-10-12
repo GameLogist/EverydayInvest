@@ -2,7 +2,8 @@ enum StockType {
   indianStock("Equity Stock"),
   usStock("US Stock"),
   etf("ETF"),
-  indice("Indice");
+  indice("Indice"),
+  crypto("Crypto");
 
   const StockType(this.text);
   final String text;
