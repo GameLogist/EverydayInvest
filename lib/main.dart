@@ -1,8 +1,10 @@
+import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:everyday_invest/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'firebase_options.dart';
 
 void main() {
@@ -23,7 +25,11 @@ class MyApp extends StatelessWidget {
       darkTheme: InvestTheme.darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: const CircularProgressIndicator(),
+      home: Center(
+          child: LoadingAnimationWidget.stretchedDots(
+        color: Colors.white,
+        size: 50,
+      )),
     );
   }
 }

@@ -55,7 +55,7 @@ class HomeScreenTopCard extends StatelessWidget {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 22)),
-                        Text(" (${homePageViewModel.nullorEmptySafeText_DayDiffPercent(snapshot.data, Indices.NSE)})",
+                        Text(" ${homePageViewModel.nullorEmptySafeText_DayDiffPercent(snapshot.data, Indices.NSE)}",
                             style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
@@ -79,7 +79,7 @@ class HomeScreenTopCard extends StatelessWidget {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 22)),
-                        Text(" (${homePageViewModel.nullorEmptySafeText_DayDiffPercent(snapshot.data, Indices.BSE)})",
+                        Text(" ${homePageViewModel.nullorEmptySafeText_DayDiffPercent(snapshot.data, Indices.BSE)}",
                             style: GoogleFonts.nunito(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,

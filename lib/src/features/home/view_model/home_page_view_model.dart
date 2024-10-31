@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'package:everyday_invest/src/features/home/model/home_page_models.dart';
-import 'package:everyday_invest/src/testing/test_data.dart';
 import 'package:everyday_invest/src/utils/enums/StockEnums.dart';
 import 'package:everyday_invest/src/utils/util_funtions/DateTimeUtils.dart';
 import 'package:everyday_invest/src/web_scraping_models/GoogleApiManager.dart';
@@ -20,10 +19,6 @@ class HomePageViewModel extends GetxController
   int page = 0;
 
   // Tab Data
-  final List<List<StockInfo>> homePageStockInfo =
-      TestData().homePageStockInfoTest;
-
-  // RxList<List<List<StockInfo>>> info = TestData().homePageStockInfoTest.obs;
   RxList<StockInfo> homeMostActive = <StockInfo>[].obs;
   RxList<StockInfo> homeUSStocks = <StockInfo>[].obs;
   RxList<StockInfo> homeETFs = <StockInfo>[].obs;
@@ -109,21 +104,6 @@ class HomePageViewModel extends GetxController
     await fetchFromGoogleApi(GoogleAPIManager.shared.mostActive);
 
     print("Home Tab data fetched!");
-    homePageStockInfo.clear();
-    print(homePageStockInfo);
-    homePageStockInfo.add(homeMostActive);
-    homePageStockInfo.add(homeUSStocks);
-    homePageStockInfo.add(homeETFs);
-    homePageStockInfo.add(homeIndices);
-    print("After fetch - $homePageStockInfo");
-    // tabController.
-    // tabController.dispose();
-    // tabController = TabController(
-    //   length: homeBottomWidgetTabs.length,
-    //   vsync: this,
-    //   initialIndex: 0
-    // );
-    // update();
   }
 
   // HTTP WEB SRAPING
@@ -162,6 +142,7 @@ class HomePageViewModel extends GetxController
 
           addToMarketSegment(segment.type, stockToAdd);
         }
+        // TODO: Unnecessay line, might remove later
         refreshMarketSegmentList(segment.type);
         print("${segment.type.text} Fetched");
         return true;

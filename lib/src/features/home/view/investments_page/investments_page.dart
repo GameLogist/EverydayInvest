@@ -6,7 +6,6 @@ import 'package:everyday_invest/src/utils/fl_charts/price_points.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class InvestmentsPage extends StatelessWidget {
   InvestmentsPage({Key? key}) : super(key: key);

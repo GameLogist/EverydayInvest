@@ -83,7 +83,7 @@ class StockDetailsView extends StatelessWidget {
                           SizedBox(
                             width: 24,
                           ),
-                          Text("+2.9%",
+                          Text("${stock.percentChange.toString()}",
                               style: GoogleFonts.nunito(
                                   color: Colors.green,
                                   fontWeight: FontWeight.w500,
@@ -95,38 +95,48 @@ class StockDetailsView extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 36),
                       child: Row(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(mCAGR,
-                                  style: GoogleFonts.nunito(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18)),
-                              Text("+${viewModel.cagr}%",
-                                  style: GoogleFonts.nunito(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 26))
-                            ],
+                          Expanded(
+                            flex: 1,
+                            child: Obx(
+                              () => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(mCAGR,
+                                      style: GoogleFonts.nunito(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18)),
+                                  Text("${viewModel.cagr}",
+                                      style: GoogleFonts.nunito(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 26))
+                                ],
+                              ),
+                            ),
                           ),
-                          SizedBox(
-                            width: 128,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(mPE,
-                                  style: GoogleFonts.nunito(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18)),
-                              Text("${viewModel.pe}",
-                                  style: GoogleFonts.nunito(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 26))
-                            ],
+                          // SizedBox(
+                          //   width: 128,
+                          // ),
+                          Expanded(
+                            flex: 1,
+                            child: Obx(
+                              () => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(mPE,
+                                      style: GoogleFonts.nunito(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18)),
+                                  Text("${viewModel.pe}",
+                                      style: GoogleFonts.nunito(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 26))
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -135,38 +145,48 @@ class StockDetailsView extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 36),
                       child: Row(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(mMarketCap,
-                                  style: GoogleFonts.nunito(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18)),
-                              Text("${viewModel.marketCap}",
-                                  style: GoogleFonts.nunito(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 26))
-                            ],
+                          Expanded(
+                            flex: 1,
+                            child: Obx(
+                              () => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(mMarketCap,
+                                      style: GoogleFonts.nunito(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18)),
+                                  Text("${viewModel.marketCap}",
+                                      style: GoogleFonts.nunito(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 26))
+                                ],
+                              ),
+                            ),
                           ),
-                          SizedBox(
-                            width: 128,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(mEPS,
-                                  style: GoogleFonts.nunito(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18)),
-                              Text("${viewModel.eps}",
-                                  style: GoogleFonts.nunito(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 26))
-                            ],
+                          // SizedBox(
+                          //   width: 128,
+                          // ),
+                          Expanded(
+                            flex: 1,
+                            child: Obx(
+                              () => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(mEPS,
+                                      style: GoogleFonts.nunito(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18)),
+                                  Text("${viewModel.eps}",
+                                      style: GoogleFonts.nunito(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 26))
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),

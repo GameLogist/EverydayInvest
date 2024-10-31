@@ -132,20 +132,18 @@ class LearnPage extends StatelessWidget {
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 2,
-                child: Expanded(
-                  child: GridView(
-                    scrollDirection: Axis.horizontal,
-                    physics: const PageScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 2.0,
-                            crossAxisSpacing: 2.0,
-                            crossAxisCount: 2,
-                            childAspectRatio: 1),
-                    children: learnPageViewModel.allModules.map((course) {
-                      return CoursesGridTile(courseData: course);
-                    }).toList(),
-                  ),
+                child: GridView(
+                  scrollDirection: Axis.horizontal,
+                  physics: const PageScrollPhysics(),
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisSpacing: 2.0,
+                          crossAxisSpacing: 2.0,
+                          crossAxisCount: 2,
+                          childAspectRatio: 1),
+                  children: learnPageViewModel.allModules.map((course) {
+                    return CoursesGridTile(courseData: course);
+                  }).toList(),
                 ),
               )
             ],

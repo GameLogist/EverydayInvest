@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:everyday_invest/src/constants/sizes.dart';
 import 'package:everyday_invest/src/features/authentication/model/onboarding_model.dart';
 import 'package:flutter/material.dart';
