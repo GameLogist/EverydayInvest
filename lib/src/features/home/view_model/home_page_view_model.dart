@@ -111,7 +111,13 @@ class HomePageViewModel extends GetxController
   Future<bool> fetchFromGoogleApi(GoogleApiMarketSegment segment) async {
     clearMarketSegment(segment.type);
 
-    final response = await http.Client().get(Uri.parse(segment.googleUrl));
+    var response;
+    try {
+      response = await http.Client().get(Uri.parse(segment.googleUrl));
+    } catch (error) {
+      print("Fetch from Google API failed = Reason - ${error}");
+      return false;
+    }
 
     if (response.statusCode == 200) {
       //Getting the html document from the response

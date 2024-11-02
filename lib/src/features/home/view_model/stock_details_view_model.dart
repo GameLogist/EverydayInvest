@@ -8,53 +8,42 @@ import 'package:yahoo_finance_data_reader/yahoo_finance_data_reader.dart';
 
 class StockDetailsPageViewModel extends GetxController {
   static StockDetailsPageViewModel get instance => Get.find();
-  List<PricePoint> stockPricaData = [];
+  RxList<PricePoint> stockPricaData = <PricePoint>[].obs;
   StockInfo stock;
   Rx<String> cagr = '-'.obs;
-  Rx<String> pe = '-'.obs;
-  Rx<String> eps = '-'.obs;
+  Rx<String> avgVolume = '-'.obs;
   Rx<String> marketCap = '-'.obs;
+  Rx<String> pe = '-'.obs;
+  Rx<String> dividendYield = '-'.obs;
+
+  Rx<String> aboutText = '-'.obs;
+  Rx<String> ceoName = '-'.obs;
+  Rx<String> foundedDate = '-'.obs;
+  Rx<String> employeeCount = '-'.obs;
+
+  Rx<String> revenue = '-'.obs;
+  Rx<String> opExp = '-'.obs;
+  Rx<String> netIncome = '-'.obs;
+  Rx<String> netProfitMargin = '-'.obs;
+  Rx<String> eps = '-'.obs;
+  Rx<String> ebitda = '-'.obs;
+  Rx<String> effTaxRate = '-'.obs;
+
+  Rx<String> cashAndSTI = '-'.obs; // Cash and Short Term Investments
+  Rx<String> totalAssets = '-'.obs;
+  Rx<String> totalLiablilities = '-'.obs;
+  Rx<String> totalEquity = '-'.obs;
+  Rx<String> returnOnAssets = '-'.obs;
+  Rx<String> returnOnCapital = '-'.obs;
 
   StockDetailsPageViewModel(this.stock);
 
   @override
   void onInit() {
     super.onInit();
-    fetchStockPrice();
     fetchFinancials();
     getDataOfTicker(stock.ticker);
   }
-
-  fetchStockPrice() {
-    stockPricaData = [
-      PricePoint(x: 2018, y: 12344),
-      PricePoint(x: 2019, y: 12445),
-      PricePoint(x: 2020, y: 12600),
-      PricePoint(x: 2021, y: 13001),
-      PricePoint(x: 2022, y: 12330),
-      PricePoint(x: 2023, y: 14322)
-    ];
-  }
-
-  /*
-  Future<bool> fetchFinancials() async {
-    var baseUrl = 'https://www.alphavantage.co/query?';
-    var queryType = 'function=OVERVIEW';
-    var keyword = '&keywords=HDFCBANK';
-    var apiKey = '&apikey=F93FME1U64RCBDPD';
-
-    var finalUrl = baseUrl + queryType + keyword + apiKey;
-    print(finalUrl);
-    final response = await http.Client().get(Uri.parse('${finalUrl}'));
-
-    if (response.statusCode == 200) {
-      print(response.body);
-    } else { 
-      print("Error");
-    }
-    return true;
-  }
-  */
 
   // HTTP WEB SRAPING
   Future<bool> fetchFinancials() async {
@@ -67,24 +56,51 @@ class StockDetailsPageViewModel extends GetxController {
 
       var document = parser.parse(response.body);
       try {
-        // About
-        var aboutText = document.getElementsByClassName('bLLb2d')[0];
-        print("aboutText - ${aboutText.text}");
-        var ceoName = document.getElementsByClassName('tBHE4e')[1];
-        print("ceoName - ${ceoName.text}");
-        var foundedIn = document.getElementsByClassName('P6K39c')[9];
-        print("foundedIn - ${foundedIn.text}");  
-        var employeeCount = document.getElementsByClassName('P6K39c')[11];
-        print("employeeCount - ${employeeCount.text}");
-
-        // Stock Details
-        var previousClose = document.getElementsByClassName('P6K39c')[0];
+        // Stock Details(Table 1)
+        var table1 = document.getElementsByClassName('eYanAe')[0];
+        print("Table 1 $table1");
+        var previousClose = table1.getElementsByClassName('P6K39c')[0];
         print("previousClose - ${previousClose.text}");
         var marketCap =
-            document.getElementsByClassName('P6K39c')[3].text.split(' ')[0];
+            table1.getElementsByClassName('P6K39c')[3].text.split(' ')[0];
         print("marketCap - ${marketCap}");
-        var avgVolume = document.getElementsByClassName('P6K39c')[4];
+        var avgVolume = table1.getElementsByClassName('P6K39c')[4];
         print("avgVolume - ${avgVolume.text}");
+        var peRatio = table1.getElementsByClassName('P6K39c')[5];
+        print("peRatio - ${peRatio.text}");
+        var dividendYield = table1.getElementsByClassName('P6K39c')[6];
+        print("dividendYield - ${dividendYield.text}");
+
+        // About(Table 2)
+        var table2 = document.getElementsByClassName('w4txWc oJeWuf')[0];
+        print("Table 2 $table2");
+        for (var i = 1; i < table2.children.length; i++) {
+          if (table2.children[i].className == 'gyFHrc') {
+            var item = table2.children[i];
+            print(item.children[0].text);
+            if (item.children[0].text == "CEO") {
+              print("CEO is - ");
+            }
+          }
+        }
+        // var previousClose = table1.getElementsByClassName('P6K39c')[0];
+        // print("previousClose - ${previousClose.text}");
+        // var marketCap =
+        //     table1.getElementsByClassName('P6K39c')[3].text.split(' ')[0];
+        // print("marketCap - ${marketCap}");
+        // var avgVolume = table1.getElementsByClassName('P6K39c')[4];
+        // print("avgVolume - ${avgVolume.text}");
+        // var peRatio = table1.getElementsByClassName('P6K39c')[5];
+        // print("peRatio - ${peRatio.text}");
+        // var dividendYield = table1.getElementsByClassName('P6K39c')[6];
+        // print("dividendYield - ${dividendYield.text}");
+
+        // var ceoName = document.getElementsByClassName('tBHE4e')[1];
+        // print("ceoName - ${ceoName.text}");
+        // var foundedIn = document.getElementsByClassName('P6K39c')[9];
+        // print("foundedIn - ${foundedIn.text}");
+        // var employeeCount = document.getElementsByClassName('P6K39c')[11];
+        // print("employeeCount - ${employeeCount.text}");
 
         var revenue = document.getElementsByClassName('QXDnM')[0];
         print("revenue - ${revenue.text}");
@@ -114,6 +130,9 @@ class StockDetailsPageViewModel extends GetxController {
 
         // Update UI
         this.marketCap.value = marketCap;
+        this.avgVolume.value = avgVolume.text;
+        this.pe.value = peRatio.text;
+        this.dividendYield.value = dividendYield.text;
         this.eps.value = eps.text;
         return true;
       } catch (e) {
@@ -123,36 +142,31 @@ class StockDetailsPageViewModel extends GetxController {
     } else {
       return false;
     }
-
-    // cagr = 23.8.obs;
-    // pe = 23.0.obs;
-    // eps = 42.82.obs;
-    // marketCap = 23456.0.obs;
-
-    // return true;
   }
 
-  Future<List<YahooFinanceCandleData>> getDataOfTicker(String ticker) async {
+  void getDataOfTicker(String ticker) async {
     print("Ticker = ${ticker}");
-    // DateTime rightNow = DateTime.now();
-    // DateTime dateToFetch = DateTimeUtils().isValidTradeDay(rightNow) &&
-    //         !DateTimeUtils().isBeforeMarketLive(rightNow)
-    //     ? rightNow
-    //     : DateTimeUtils().lastOpenTime();
     DateTime dateToFetch = DateTime(2024, 1, 1);
     final tickerPrice = await YahooFinanceService().getTickerData(
-      ticker,
+      '$ticker.NS',
       startDate: dateToFetch,
       adjust: true,
     );
 
     var entries = tickerPrice.length;
     print("No. of entries = ${entries}");
-    if(entries > 0) {
+    if (entries > 0) {
       print("Sample entry = ${tickerPrice[0]}");
+    } else {
+      print("Data not found or cant be fetched!");
+      return;
     }
-    // print("Ticker : $ticker = $tickerPrice");
-
-    return tickerPrice;
+    for (var dataPoint in tickerPrice) {
+      stockPricaData.add(PricePoint(
+          x: dataPoint.date.millisecondsSinceEpoch.toDouble(),
+          y: dataPoint.close));
+    }
+    stockPricaData.refresh();
+    print(stockPricaData);
   }
 }

@@ -195,26 +195,28 @@ class StockDetailsView extends StatelessWidget {
                 ),
               ),
             ),
-            AspectRatio(
-              aspectRatio: 2,
-              child: LineChart(LineChartData(
-                lineBarsData: [
-                  LineChartBarData(
-                      spots: viewModel.stockPricaData
-                          .map((points) => FlSpot(points.x, points.y))
-                          .toList(),
-                      isCurved: true,
-                      dotData: FlDotData(show: false),
-                      color: mDarkBlue)
-                ],
-                borderData: FlBorderData(
-                  show: false,
-                ),
-                gridData: FlGridData(show: false),
-                titlesData: FlTitlesData(
-                  show: false,
-                ),
-              )),
+            Obx(
+              () => AspectRatio(
+                aspectRatio: 2,
+                child: LineChart(LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(
+                        spots: viewModel.stockPricaData
+                            .map((points) => FlSpot(points.x, points.y))
+                            .toList(),
+                        isCurved: true,
+                        dotData: FlDotData(show: false),
+                        color: mDarkBlue)
+                  ],
+                  borderData: FlBorderData(
+                    show: false,
+                  ),
+                  gridData: FlGridData(show: false),
+                  titlesData: FlTitlesData(
+                    show: false,
+                  ),
+                )),
+              ),
             )
           ],
         ),
