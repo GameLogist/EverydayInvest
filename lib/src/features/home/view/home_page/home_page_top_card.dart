@@ -22,7 +22,7 @@ class HomeScreenTopCard extends StatelessWidget {
         width: size.width,
         height: size.height / 4.5,
         decoration: BoxDecoration(
-          color: mDarkBlue,
+          color: mSecondaryBackground,
           borderRadius: BorderRadius.all(Radius.circular(24)),
           boxShadow: [
             BoxShadow(
@@ -43,7 +43,7 @@ class HomeScreenTopCard extends StatelessWidget {
                   children: [
                     Text("NSE",
                         style: GoogleFonts.nunito(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w700,
                             fontSize: 14)),
                     Row(
@@ -52,12 +52,12 @@ class HomeScreenTopCard extends StatelessWidget {
                             homePageViewModel.nullorEmptySafeText_AdjClose(
                                 snapshot.data, Indices.NSE),
                             style: GoogleFonts.nunito(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 22)),
                         Text(" ${homePageViewModel.nullorEmptySafeText_DayDiffPercent(snapshot.data, Indices.NSE)}",
                             style: GoogleFonts.nunito(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16)),
                       ],
@@ -67,7 +67,7 @@ class HomeScreenTopCard extends StatelessWidget {
                     ),
                     Text("BSE",
                         style: GoogleFonts.nunito(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.w700,
                             fontSize: 14)),
                     Row(
@@ -76,12 +76,12 @@ class HomeScreenTopCard extends StatelessWidget {
                             homePageViewModel.nullorEmptySafeText_AdjClose(
                                 snapshot.data, Indices.BSE),
                             style: GoogleFonts.nunito(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 22)),
                         Text(" ${homePageViewModel.nullorEmptySafeText_DayDiffPercent(snapshot.data, Indices.BSE)}",
                             style: GoogleFonts.nunito(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16)),
                       ],

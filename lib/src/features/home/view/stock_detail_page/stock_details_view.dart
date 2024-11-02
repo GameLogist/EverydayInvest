@@ -217,9 +217,115 @@ class StockDetailsView extends StatelessWidget {
                   ),
                 )),
               ),
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(48, 48, 48, 24),
+                child: Column(
+                  children: [
+                    Text(mIncomeStatement,
+                        style: GoogleFonts.nunito(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20)),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    StockDetailsRowItem(
+                        header: mRevenue, content: viewModel.revenue),
+                    StockDetailsRowItem(
+                        header: mOpExp, content: viewModel.opExp),
+                    StockDetailsRowItem(
+                        header: mNetIncome, content: viewModel.netIncome),
+                    StockDetailsRowItem(
+                        header: mNetProfitMargin,
+                        content: viewModel.netProfitMargin),
+                    StockDetailsRowItem(header: mEPS, content: viewModel.eps),
+                    StockDetailsRowItem(
+                        header: mEBITDA, content: viewModel.ebitda),
+                    StockDetailsRowItem(
+                        header: mEffTaxRate, content: viewModel.effTaxRate),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(48, 48, 48, 24),
+                child: Column(
+                  children: [
+                    Text(mBalanceSheet,
+                        style: GoogleFonts.nunito(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20)),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    StockDetailsRowItem(
+                        header: mCashAndSTI, content: viewModel.cashAndSTI),
+                    StockDetailsRowItem(
+                        header: mTotalAssets, content: viewModel.totalAssets),
+                    StockDetailsRowItem(
+                        header: mTotalLiablilities,
+                        content: viewModel.totalLiablilities),
+                    StockDetailsRowItem(
+                        header: mTotalEquity, content: viewModel.totalEquity),
+                    StockDetailsRowItem(
+                        header: mSharesOutstanding,
+                        content: viewModel.sharesOutstanding),
+                    StockDetailsRowItem(
+                        header: mPriceToBook, content: viewModel.priceToBook),
+                    StockDetailsRowItem(
+                        header: mReturnOnAssets,
+                        content: viewModel.returnOnAssets),
+                    StockDetailsRowItem(
+                        header: mReturnOnCapital,
+                        content: viewModel.returnOnCapital),
+                  ],
+                ),
+              ),
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class StockDetailsRowItem extends StatelessWidget {
+  const StockDetailsRowItem(
+      {super.key, required this.header, required this.content});
+
+  final String header;
+  final Rx<String> content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Expanded(
+              flex: 2,
+              child: Text(header,
+                  style: GoogleFonts.nunito(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16))),
+          Obx(
+            () => Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 24),
+                  child: Text(content.value,
+                      style: GoogleFonts.nunito(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16)),
+                )),
+          )
+        ],
       ),
     );
   }

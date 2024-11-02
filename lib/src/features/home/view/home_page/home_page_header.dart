@@ -21,9 +21,9 @@ class HomeScreenHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Hi, Ayush Tiwari",
+          Text("Hi there lazy investor!",
               style: GoogleFonts.nunito(
-                  color: mDarkBlue, fontWeight: FontWeight.w700, fontSize: 22)),
+                  color: mDarkBlue, fontWeight: FontWeight.w700, fontSize: 21)),
           Text(
               DateTimeUtils().isValidTimeRange(DateTime.now(), StockTime.Indian)
                   ? "Market Live"
