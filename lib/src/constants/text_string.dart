@@ -16,11 +16,11 @@ const String mOnboardingTitle2 = "Learn all the Fundamentals";
 const String mOnboardingTitle3 = "Discover your own style and strategy";
 
 const String mOnboardingSubTitle1 =
-    "Track and build your amazing protfolio right from the app with beautiful illustrations";
+    "Discover stocks and find out all the financial metrics you need to start your journey!";
 const String mOnboardingSubTitle2 =
-    "Read about all the basic metrics and ratios that you need to start investing";
+    "Read our curated selection of courses and illustrations to help you understand every number on the screen";
 const String mOnboardingSubTitle3 =
-    "Overtime as you build your mindset, you wont reply on anyone else except yourself";
+    "Overtime as you build your mindset, you wont rely on anyone else except yourself";
 
 const String mOnboardingCounter1 = "1/3";
 const String mOnboardingCounter2 = "2/3";

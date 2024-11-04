@@ -38,6 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   yahoo_finance_data_reader: ^1.0.9
   dartpy: ^0.0.3
+  shared_preferences: ^2.3.2
+  flutter_launcher_icons: ^0.14.1
 
 dev_dependencies:
   flutter_test:

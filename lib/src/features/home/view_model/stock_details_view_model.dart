@@ -53,7 +53,13 @@ class StockDetailsPageViewModel extends GetxController {
     loading.value = true;
     final url = 'https://www.google.com/finance/quote/${stock.ticker}:NSE';
     print(url);
-    final response = await http.Client().get(Uri.parse(url));
+    var response;
+    try {
+      response = await http.Client().get(Uri.parse(url));
+    } catch (error) {
+      print("Fetch from Google API failed = Reason - ${error}");
+      return false;
+    }
 
     if (response.statusCode == 200) {
       //Getting the html document from the response
