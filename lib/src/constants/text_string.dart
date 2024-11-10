@@ -60,6 +60,7 @@ const String mMenuItem4 = "Policies and Agreements";
 const String mMenuItem5 = mLogout;
 
 // Stock Details Page
+const String mStockInfo = "Stock Info";
 const String mCurrentPrice = "Current Price";
 const String mCAGR = "CAGR";
 const String mMarketCap = "Market Cap";

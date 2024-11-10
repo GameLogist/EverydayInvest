@@ -141,7 +141,7 @@ class AccountPage extends StatelessWidget {
                               textColor: Colors.red,
                               endIcon: false,
                               onPress: () {
-                                AuthenticationRepository.instance.logout();
+                                // AuthenticationRepository.instance.logout();
                               },
                             ),
                           ],

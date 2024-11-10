@@ -8,11 +8,11 @@ import 'package:get/get.dart';
 
 class LearnPageViewModel extends GetxController {
   static LearnPageViewModel get instance => Get.find();
-  final _authRepo = Get.put(AuthenticationRepository());
+  // final _authRepo = Get.put(AuthenticationRepository());
   final userName = "".obs;
-  late Rx<UserModel> userData =
-      const UserModel(fullName: "", email: "", phoneNo: "", password: "").obs;
-  final _userRepo = Get.put(UserRepository());
+  // late Rx<UserModel> userData =
+  //     const UserModel(fullName: "", email: "", phoneNo: "", password: "").obs;
+  // final _userRepo = Get.put(UserRepository());
 
   // Module Journey
   List<CourseModel> modulesToStartOrContinue = [];
@@ -30,15 +30,15 @@ class LearnPageViewModel extends GetxController {
   }
 
   getUserDetails() {
-    final email = _authRepo.firebaseUser.value?.email;
-    if (email != null) {
-      _userRepo.getUserDetails(email).then((data) {
-        print("userdata - ${data.fullName}");
-        userData.value = data;
-      });
-    } else {
-      Get.snackbar("Error", "Login to continue");
-    }
+    // final email = _authRepo.firebaseUser.value?.email;
+    // if (email != null) {
+    //   _userRepo.getUserDetails(email).then((data) {
+    //     print("userdata - ${data.fullName}");
+    //     userData.value = data;
+    //   });
+    // } else {
+    //   Get.snackbar("Error", "Login to continue");
+    // }
   }
 
   void loadModuleData() {
@@ -46,39 +46,45 @@ class LearnPageViewModel extends GetxController {
       CourseModel(
           courseId: 1,
           title: "Introduction To Company Valuation",
-          moduleNumber: "1",
+          moduleNumber: "01",
           difficulty: eCourseDifficulty.beginner,
-          totalChaptors: 3),
+          totalChaptors: 3, 
+          chaptors: []),
       CourseModel(
           courseId: 2,
           title: "Financial Statements",
-          moduleNumber: "2",
+          moduleNumber: "02",
           difficulty: eCourseDifficulty.intermediate,
-          totalChaptors: 3),
+          totalChaptors: 3,
+          chaptors: []),
       CourseModel(
           courseId: 3,
           title: "Financial Ratios",
-          moduleNumber: "3",
+          moduleNumber: "03",
           difficulty: eCourseDifficulty.intermediate,
-          totalChaptors: 6),
+          totalChaptors: 6,
+          chaptors: []),
       CourseModel(
           courseId: 4,
           title: "Fundamental Analysis Basics",
-          moduleNumber: "4",
+          moduleNumber: "04",
           difficulty: eCourseDifficulty.intermediate,
-          totalChaptors: 11),
+          totalChaptors: 11,
+          chaptors: []),
       CourseModel(
           courseId: 5,
           title: "Fundamental Analysis Tools and Methods",
-          moduleNumber: "5",
+          moduleNumber: "05",
           difficulty: eCourseDifficulty.intermediate,
-          totalChaptors: 12),
+          totalChaptors: 12,
+          chaptors: []),
       CourseModel(
           courseId: 6,
           title: "Valuing Non-Public Companies",
-          moduleNumber: "6",
+          moduleNumber: "06",
           difficulty: eCourseDifficulty.advanced,
-          totalChaptors: 2)
+          totalChaptors: 2,
+          chaptors: [])
     ];
 
     modulesToStartOrContinue = [allModules[0]];

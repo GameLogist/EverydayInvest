@@ -3,12 +3,12 @@ import 'package:everyday_invest/src/features/home/view/learn_page/model/courses_
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ModuleJourneyCard extends StatelessWidget {
-  const ModuleJourneyCard({
-    super.key, required this.courseData,
+class ChaptorListItemCardView extends StatelessWidget {
+  const ChaptorListItemCardView({
+    super.key, required this.chaptorData,
   });
 
-  final CourseModel courseData;
+  final ChaptorModel chaptorData;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ModuleJourneyCard extends StatelessWidget {
           child: Column(children: [
             SizedBox(
               width: double.infinity,
-              child: Text("Module:",
+              child: Text("Chaptor:",
                   style: GoogleFonts.nunito(
                       color: Colors.grey,
                       fontWeight: FontWeight.w400,
@@ -39,7 +39,7 @@ class ModuleJourneyCard extends StatelessWidget {
             ),
             Row(
               children: [
-                Text("${courseData.moduleNumber}",
+                Text("${chaptorData.chaptorId}",
                     style: GoogleFonts.kaushanScript(
                         color: mDarkBlue,
                         fontWeight: FontWeight.w700,
@@ -51,7 +51,7 @@ class ModuleJourneyCard extends StatelessWidget {
                 SizedBox(
                   width: 8,
                 ),
-                Text(courseData.title,
+                Text(chaptorData.title,
                     style: GoogleFonts.nunito(
                         color: mDarkBlue,
                         fontWeight: FontWeight.w700,
@@ -67,7 +67,7 @@ class ModuleJourneyCard extends StatelessWidget {
                 Container(
                   child: Row(
                     children: [
-                      Text("Difficulty:",
+                      Text("Time:",
                           style: GoogleFonts.nunito(
                               color: Colors.grey,
                               fontWeight: FontWeight.w400,
@@ -75,7 +75,7 @@ class ModuleJourneyCard extends StatelessWidget {
                       SizedBox(
                         width: 12,
                       ),
-                      Text(courseData.difficulty.text,
+                      Text("${chaptorData.totalTime}",
                           style: GoogleFonts.nunito(
                               color: mDarkBlue,
                               fontWeight: FontWeight.w700,
@@ -83,37 +83,37 @@ class ModuleJourneyCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: Row(
-                    children: [
-                      Text("Chaptor : ",
-                          style: GoogleFonts.nunito(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12)),
-                      Text("${courseData.currentChaptorProgress}",
-                          style: GoogleFonts.nunito(
-                              color: mDarkBlue,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16)),
-                      SizedBox(
-                        width: 12,
-                      )
-                    ],
-                  ),
-                ),
+                // Container(
+                //   alignment: Alignment.topRight,
+                //   child: Row(
+                //     children: [
+                //       Text("Chaptor : ",
+                //           style: GoogleFonts.nunito(
+                //               color: Colors.grey,
+                //               fontWeight: FontWeight.w400,
+                //               fontSize: 12)),
+                //       Text("${chaptorData.currentChaptorProgress}",
+                //           style: GoogleFonts.nunito(
+                //               color: mDarkBlue,
+                //               fontWeight: FontWeight.w700,
+                //               fontSize: 16)),
+                //       SizedBox(
+                //         width: 12,
+                //       )
+                //     ],
+                //   ),
+                // ),
               ],
             ),
             SizedBox(
               height: 12,
             ),
-            LinearProgressIndicator(
-              value: courseData.currentChaptorProgress / courseData.totalChaptors,
-              backgroundColor: Colors.black12,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-              borderRadius: BorderRadius.circular(100),
-            ),
+            // LinearProgressIndicator(
+            //   value: chaptorData.currentChaptorProgress / chaptorData.totalChaptors,
+            //   backgroundColor: Colors.black12,
+            //   valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+            //   borderRadius: BorderRadius.circular(100),
+            // ),
           ]),
         ),
       ),

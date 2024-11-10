@@ -1,5 +1,6 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/features/home/view/account_page/account_page.dart';
+import 'package:everyday_invest/src/features/home/view/explore/explore_page.dart';
 import 'package:everyday_invest/src/features/home/view/home_page/home_page.dart';
 import 'package:everyday_invest/src/features/home/view/investments_page/investments_page.dart';
 import 'package:everyday_invest/src/features/home/view/learn_page/learn_page.dart';
@@ -18,9 +19,10 @@ class _NavigationPageState extends State<NavigationPage> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    InvestmentsPage(),
+    // InvestmentsPage(),
     LearnPage(),
-    AccountPage(),
+    // AccountPage(),
+    ExplorePage()
   ];
 
   @override
@@ -49,17 +51,17 @@ class _NavigationPageState extends State<NavigationPage> {
                 icon: LineIcons.home,
                 text: 'Home',
               ),
-              GButton(
-                icon: LineIcons.suitcase,
-                text: 'Investments',
-              ),
+              // GButton(
+              //   icon: LineIcons.suitcase,
+              //   text: 'Investments',
+              // ),
               GButton(
                 icon: LineIcons.school,
                 text: 'Learn',
               ),
               GButton(
-                icon: LineIcons.user,
-                text: 'Account',
+                icon: LineIcons.rocket,
+                text: 'Explore',
               ),
             ],
             selectedIndex: _selectedIndex,

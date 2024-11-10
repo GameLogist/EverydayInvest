@@ -4,6 +4,7 @@ class CourseModel {
   final String moduleNumber;
   final eCourseDifficulty difficulty;
   final int totalChaptors;
+  final List<ChaptorModel> chaptors;
   int currentChaptorProgress;
 
   CourseModel({
@@ -12,6 +13,7 @@ class CourseModel {
     required this.moduleNumber,
     required this.difficulty,
     required this.totalChaptors,
+    required this.chaptors,
     this.currentChaptorProgress = 0,
   });
 }
@@ -24,4 +26,19 @@ enum eCourseDifficulty {
 
   const eCourseDifficulty(this.text);
   final String text;
+}
+
+class ChaptorModel {
+  final int chaptorId;
+  final int courseId;
+  final String title;
+  final int totalChaptors;
+  final int totalTime;
+
+  ChaptorModel(
+      {required this.chaptorId,
+      required this.courseId,
+      required this.title,
+      required this.totalChaptors,
+      required this.totalTime});
 }

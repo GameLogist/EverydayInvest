@@ -1,5 +1,6 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/constants/image_strings.dart';
+import 'package:everyday_invest/src/features/home/view/learn_page/chaptor_list_view.dart';
 import 'package:everyday_invest/src/features/home/view/learn_page/courses_grid_tile.dart';
 import 'package:everyday_invest/src/features/home/view/learn_page/module_journey_card.dart';
 import 'package:everyday_invest/src/features/home/view_model/learn_page_view_model.dart';
@@ -32,12 +33,12 @@ class LearnPage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
                   alignment: Alignment.topLeft,
-                  child: Obx(() => Text(
-                      "Hey, ${learnPageViewModel.userData.value.fullName.split(' ')[0]}!",
+                  child: Text(
+                      "Lets overkill this shall we?",
                       style: GoogleFonts.nunito(
                           color: mDarkBlue,
                           fontWeight: FontWeight.w700,
-                          fontSize: 24))),
+                          fontSize: 24)),
                 ),
               ),
 
@@ -108,7 +109,7 @@ class LearnPage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: SizedBox(
                   width: double.infinity,
-                  child: Text("Lets start a journey!",
+                  child: Text("Lets continue the journey!",
                       style: GoogleFonts.nunito(
                           color: mAccentColor,
                           fontWeight: FontWeight.w700,
@@ -123,7 +124,7 @@ class LearnPage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                 child: SizedBox(
                   width: double.infinity,
-                  child: Text("Courses",
+                  child: Text("Modules",
                       style: GoogleFonts.nunito(
                           color: mAccentColor,
                           fontWeight: FontWeight.w700,
@@ -142,7 +143,12 @@ class LearnPage extends StatelessWidget {
                           crossAxisCount: 2,
                           childAspectRatio: 1),
                   children: learnPageViewModel.allModules.map((course) {
-                    return CoursesGridTile(courseData: course);
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(() => ChapterListView(courseData: course));
+                      },
+                      child: CoursesGridTile(courseData: course)
+                      );
                   }).toList(),
                 ),
               )

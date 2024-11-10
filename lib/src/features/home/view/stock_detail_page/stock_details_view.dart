@@ -27,7 +27,7 @@ class StockDetailsView extends StatelessWidget {
           },
           icon: const Icon(LineAwesomeIcons.angle_left_solid),
         ),
-        title: Text("Stock Info",
+        title: Text(mStockInfo,
             style: GoogleFonts.nunito(
                 color: Colors.black,
                 fontWeight: FontWeight.w700,
@@ -83,7 +83,7 @@ class StockDetailsView extends StatelessWidget {
                           SizedBox(
                             width: 24,
                           ),
-                          Text("${stock.percentChange.toString()}",
+                          Text("${stock.percentChange.toString()}%",
                               style: GoogleFonts.nunito(
                                   color: Colors.green,
                                   fontWeight: FontWeight.w500,

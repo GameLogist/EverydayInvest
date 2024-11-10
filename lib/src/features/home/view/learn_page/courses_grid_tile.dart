@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/features/home/view/learn_page/model/courses_model.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class CoursesGridTile extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Container(
         decoration: new BoxDecoration(
-          color: pastelColorArray[1],
+          color: mPrimaryBackground,
           borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             new BoxShadow(

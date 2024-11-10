@@ -1,6 +1,7 @@
 import 'package:everyday_invest/src/constants/colors.dart';
 import 'package:everyday_invest/src/features/home/view/home_page/home_tab_list_view.dart';
 import 'package:everyday_invest/src/features/home/view/home_page/stock_tile.dart';
+import 'package:everyday_invest/src/features/home/view/stock_detail_page/stock_details_view.dart';
 import 'package:everyday_invest/src/features/home/view_model/home_page_view_model.dart';
 import 'package:everyday_invest/src/utils/enums/StockEnums.dart';
 import 'package:flutter/material.dart';
@@ -87,19 +88,30 @@ class HomeScreenBottomCard extends StatelessWidget {
                                           5),
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        return StockListTile(
-                                          name: homePageViewModel
-                                              .homeTopGainers[index].name
-                                              .toString(),
-                                          ticker: homePageViewModel
-                                              .homeTopGainers[index].ticker
-                                              .toString(),
-                                          price: homePageViewModel
-                                              .homeTopGainers[index].price
-                                              .toString(),
-                                          percentChange: homePageViewModel
-                                              .homeTopGainers[index]
-                                              .percentChange,
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Get.to(() => StockDetailsView(
+                                                  stock: homePageViewModel
+                                                          .getHomeTabList(
+                                                              HomeListType
+                                                                  .indianStock)[
+                                                      index],
+                                                ));
+                                          },
+                                          child: StockListTile(
+                                            name: homePageViewModel
+                                                .homeTopGainers[index].name
+                                                .toString(),
+                                            ticker: homePageViewModel
+                                                .homeTopGainers[index].ticker
+                                                .toString(),
+                                            price: homePageViewModel
+                                                .homeTopGainers[index].price
+                                                .toString(),
+                                            percentChange: homePageViewModel
+                                                .homeTopGainers[index]
+                                                .percentChange,
+                                          ),
                                         );
                                       }),
                                 ),
@@ -139,19 +151,30 @@ class HomeScreenBottomCard extends StatelessWidget {
                                           5),
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        return StockListTile(
-                                            name: homePageViewModel
-                                                .homeTopLosers[index].name
-                                                .toString(),
-                                            ticker: homePageViewModel
-                                                .homeTopLosers[index].ticker
-                                                .toString(),
-                                            price: homePageViewModel
-                                                .homeTopLosers[index].price
-                                                .toString(),
-                                            percentChange: homePageViewModel
-                                                .homeTopLosers[index]
-                                                .percentChange);
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Get.to(() => StockDetailsView(
+                                                  stock: homePageViewModel
+                                                          .getHomeTabList(
+                                                              HomeListType
+                                                                  .indianStock)[
+                                                      index],
+                                                ));
+                                          },
+                                          child: StockListTile(
+                                              name: homePageViewModel
+                                                  .homeTopLosers[index].name
+                                                  .toString(),
+                                              ticker: homePageViewModel
+                                                  .homeTopLosers[index].ticker
+                                                  .toString(),
+                                              price: homePageViewModel
+                                                  .homeTopLosers[index].price
+                                                  .toString(),
+                                              percentChange: homePageViewModel
+                                                  .homeTopLosers[index]
+                                                  .percentChange),
+                                        );
                                       }),
                                 ),
                               ),
