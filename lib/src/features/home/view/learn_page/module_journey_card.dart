@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ModuleJourneyCard extends StatelessWidget {
   const ModuleJourneyCard({
-    super.key, required this.courseData,
+    super.key,
+    required this.courseData,
   });
 
   final CourseModel courseData;
@@ -47,15 +48,21 @@ class ModuleJourneyCard extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-                Icon(Icons.align_vertical_bottom_rounded),
+                Icon(
+                  Icons.align_vertical_bottom_rounded,
+                  color: Colors.black,
+                ),
                 SizedBox(
                   width: 8,
                 ),
-                Text(courseData.title,
-                    style: GoogleFonts.nunito(
-                        color: mDarkBlue,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16))
+                Flexible(
+                  child: Text(courseData.title,
+                      maxLines: 3,
+                      style: GoogleFonts.nunito(
+                          color: mDarkBlue,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16)),
+                )
               ],
             ),
             SizedBox(
@@ -109,7 +116,8 @@ class ModuleJourneyCard extends StatelessWidget {
               height: 12,
             ),
             LinearProgressIndicator(
-              value: courseData.currentChaptorProgress / courseData.totalChaptors,
+              value:
+                  courseData.currentChaptorProgress / courseData.totalChaptors,
               backgroundColor: Colors.black12,
               valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
               borderRadius: BorderRadius.circular(100),
